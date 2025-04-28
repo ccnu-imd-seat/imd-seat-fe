@@ -8,16 +8,19 @@ export default defineConfig<'webpack5'>(async (merge, { command, mode }) => {
   const baseConfig: UserConfigExport<'webpack5'> = {
     projectName: 'imd-seat-fe',
     date: '2025-4-28',
-    designWidth: 750,
+    designWidth: 440,
     deviceRatio: {
       640: 2.34 / 2,
       750: 1,
       375: 2,
-      828: 1.81 / 2
+      828: 1.81 / 2,
+      440: 1.70 / 1
     },
     sourceRoot: 'src',
     outputRoot: 'dist',
-    plugins: [],
+    plugins: [
+      "@taro-hooks/plugin-react"
+    ],
     defineConstants: {
     },
     copy: {
