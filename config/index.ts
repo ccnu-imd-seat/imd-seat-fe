@@ -1,10 +1,11 @@
 import { defineConfig, type UserConfigExport } from '@tarojs/cli'
 import TsconfigPathsPlugin from 'tsconfig-paths-webpack-plugin'
+import {UnifiedWebpackPluginV5} from 'weapp-tailwindcss/webpack'
 import devConfig from './dev'
 import prodConfig from './prod'
 
 // https://taro-docs.jd.com/docs/next/config#defineconfig-辅助函数
-export default defineConfig<'webpack5'>(async (merge, { command, mode }) => {
+export default defineConfig<'webpack5'>(async (merge) => {
   const baseConfig: UserConfigExport<'webpack5'> = {
     projectName: 'imd-seat-fe',
     date: '2025-4-28',
@@ -55,7 +56,22 @@ export default defineConfig<'webpack5'>(async (merge, { command, mode }) => {
         }
       },
       webpackChain(chain) {
-        chain.resolve.plugin('tsconfig-paths').use(TsconfigPathsPlugin)
+				chain.resolve.plugin('tsconfig-paths').use(TsconfigPathsPlugin)
+
+				      chain.merge({
+        plugin: {
+          install: {
+            plugin: UnifiedWebpackPluginV5,
+            args: [
+              {
+                appType: 'taro',
+                // disabled: WeappTailwindcssDisabled,
+                rem2rpx: true,
+              },
+            ],
+          },
+        },
+      });
       }
     },
   }
