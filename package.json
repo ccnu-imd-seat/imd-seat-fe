@@ -12,7 +12,8 @@
   "scripts": {
     "build": "taro build --type weapp",
     "dev": "pnpm run build -- --watch",
-		"postinstall": "weapp-tw patch"
+    "postinstall": "weapp-tw patch",
+    "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx,scss,css,md}\""
   },
   "browserslist": [
     "defaults and fully supports es6-module",
@@ -54,6 +55,7 @@
     "eslint-plugin-react": "^7.34.1",
     "eslint-plugin-react-hooks": "^4.4.0",
     "postcss": "^8.4.38",
+    "prettier": "^3.5.3",
     "react-refresh": "^0.14.0",
     "sass": "^1.75.0",
     "stylelint": "^16.4.0",
