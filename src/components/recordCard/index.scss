@@ -1,0 +1,91 @@
+.record-card {
+  height: 70px;
+  background: #fff;
+  border-bottom: 2px solid #79CDFA;
+  margin-bottom: 20px;
+}
+
+.record-date {
+  font-family: AlibabaPuHuiTi, AlibabaPuHuiTi;
+  font-weight: 400;
+  font-size: 14px;
+  color: #3D3D3D;
+  line-height: 19px;
+  letter-spacing: 1px;
+  text-align: left;
+  font-style: normal;
+  text-transform: none;
+  margin-bottom: 15px;
+}
+
+.record-detail {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+}
+
+.record-location {
+  font-family: AlibabaPuHuiTi, AlibabaPuHuiTi;
+  font-weight: 400;
+  font-size: 18px;
+  color: #3D3D3D;
+  line-height: 25px;
+  letter-spacing: 1px;
+  text-align: left;
+  font-style: normal;
+  text-transform: none;
+}
+
+.record-status {
+  margin-left: 8px;
+  font-family: AlibabaPuHuiTi, AlibabaPuHuiTi;
+  font-weight: 400;
+  font-size: 18px;
+  color: #A6A6A6;
+  line-height: 25px;
+  letter-spacing: 1px;
+  text-align: left;
+  font-style: normal;
+  text-transform: none;
+  border-radius: 14px;
+  padding: 2px 16px;
+}
+
+.record-tap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: AlibabaPuHuiTi, AlibabaPuHuiTi;
+  font-weight: 400;
+  font-size: 12px;
+  color: #8B0C0C;
+  line-height: 16px;
+  letter-spacing: 1px;
+  text-align: left;
+  font-style: normal;
+  text-transform: none;
+  width: 71px;
+  height: 29px;
+  background: #F59E9B;
+  border-radius: 18px;
+}
+
+.record-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: AlibabaPuHuiTi, AlibabaPuHuiTi;
+  font-weight: 400;
+  font-size: 12px;
+  color: #8B0C0C;
+  line-height: 16px;
+  letter-spacing: 1px;
+  text-align: left;
+  font-style: normal;
+  text-transform: none;
+  width: 71px;
+  height: 29px;
+  background: #F59E9B;
+  border-radius: 18px;
+}

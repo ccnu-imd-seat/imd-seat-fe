@@ -1,0 +1,139 @@
+@use "sass:math";
+
+.login-page {
+  min-height: 100vh;
+  border-radius: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 51px 11px 0px 16px;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.login-bg {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  object-fit: cover;
+  object-position: right top;
+  pointer-events: none;
+}
+
+// 保证内容在背景图片之上
+.login-page > *:not(.login-bg) {
+  position: relative;
+  z-index: 1;
+}
+
+.login-header {
+  margin-bottom: 85px;
+  width: 100%;
+  padding:0 0 0 15px;
+  box-sizing: border-box;
+}
+
+.login-hello {
+  font-size: 50px;
+  font-weight: 400;
+  font-family: AlibabaPuHuiTi-Regular, 'Consolas', 'Menlo', 'Monaco', monospace;
+  color: #ffffff;
+  letter-spacing: 5px;
+}
+
+.login-greet {
+  font-size: 36px;
+  color: #09A9FF ;
+  margin-bottom: 15px;
+  font-weight: 400;
+  font-family: AlibabaPuHuiTi-Regular, 'Consolas', 'Menlo', 'Monaco', monospace;
+  letter-spacing: 3.6px;
+}
+
+.login-welcome {
+  font-size: 20px;
+  font-weight: 400;
+  font-family: AlibabaPuHuiTi-Regular, 'Consolas', 'Menlo', 'Monaco', monospace;
+  letter-spacing: 2px;
+  color: #447179 ;
+}
+
+.login-form-card {
+  position: relative; // 保证伪元素定位生效
+  width: 96%;
+  height: 663px;
+  background: linear-gradient( 180deg, #FFFFFF 0%, #FFFFFF 64%, rgba(255,255,255,0) 100%);
+  border-radius: 27px;
+  padding:102px 75px 0px 52px;
+  margin: 0 auto 32px auto;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+}
+
+
+// 保证表单内容在背景图片之上
+.login-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding:102 75 0 52;
+  position: relative;
+}
+
+
+.login-input {
+  width: 100%;
+  height: 19px;
+  font-family: AlibabaPuHuiTi, AlibabaPuHuiTi;
+  font-weight: 400;
+  font-size: 16px;
+  color: #6F6F6F;
+  line-height: 19px;
+  letter-spacing: 1px;
+  text-align: left;
+  font-style: normal;
+  text-transform: none;
+  margin-bottom: 7px;
+}
+
+.line{
+   width: 100%;
+  height: 0;
+  border: 2px solid #79CDFA;
+  background-color: #79CDFA;
+  margin-bottom: 63px;
+}
+
+.login-btn {
+  height: 41px;
+   width: 100%;
+  background: linear-gradient(270deg, #A9EAFF 0%, #DCFFFE 48%, #79CDFA 100%);
+  font-family: AlibabaPuHuiTi, AlibabaPuHuiTi;
+  font-weight: 500;
+  font-size: 24px;
+  color: #036CA4;
+  margin-top: 15px;
+  line-height: 41px;
+  letter-spacing: 10px;
+  border-radius: 25px;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 24px 0 rgba(80, 180, 255, 0.18), 0 4px 16px 0 rgba(0,0,0,0.16);
+}
+
+.login-footer {
+  position: absolute;
+  bottom: 8px;
+  width: 100%;
+  text-align: center;
+  color: #8AABCA ;
+  font-size: 18px;
+  letter-spacing: 2px;
+}
