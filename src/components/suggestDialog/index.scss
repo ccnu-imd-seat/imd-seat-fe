@@ -1,0 +1,101 @@
+.suggest-dialog__mask {
+  position: fixed;
+  z-index: 9999;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100vw;
+  height: 100vh;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.suggest-dialog__container {
+  position: relative;
+  width: 351px;
+  height: 263px;
+  background: #C3F0FF;
+  box-shadow: -15px 8px 5px 0px rgba(0, 0, 0, 0.07);
+  border-radius: 25px 25px 25px 25px;
+  max-width: 320px;
+  width: 90vw;
+  box-sizing: border-box;
+  padding: 32px 24px 24px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.suggest-dialog__close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 24px;
+  height: 24px;
+  z-index: 10;
+  cursor: pointer;
+}
+
+.suggest-dialog__content {
+  font-family: AlibabaPuHuiTi, AlibabaPuHuiTi;
+  font-weight: 400;
+  font-size: 16px;
+  color: #036CA4;
+  line-height: 22px;
+  letter-spacing: 1px;
+  text-align: left;
+  font-style: normal;
+  text-transform: none;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding:20px 0px 0px 0px;
+  gap: 8px;
+}
+
+.suggest-dialog__input-wrapper {
+  width: 90%;
+  margin-top: 10px;
+  display: flex;
+  background: #C3F0FF;
+  box-shadow: -15px 8px 5px 0px rgba(0, 0, 0, 0.07);
+  border-radius: 25px;
+  border: 2px solid #4DABDC;
+  justify-content: center;
+}
+
+.suggest-dialog__input {
+  width: 260px;
+  border-radius: 25px;
+  background: #fff;
+  color: #222;
+  padding: 10px 12px;
+  font-size: 16px;
+  border: none;
+  outline: none;
+}
+
+.suggest-dialog__actions {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 20px;
+  width: 100%;
+}
+
+.suggest-dialog__btn {
+  background: #fff !important;
+  color: #1976d2 !important;
+  border-radius: 24px !important;
+  min-width: 80px;
+  font-weight: bold;
+  font-size: 16px;
+  border: none;
+  height: 40px;
+  line-height: 40px;
+  padding: 0 24px;
+}

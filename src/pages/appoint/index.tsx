@@ -1,7 +1,7 @@
 import { View, Text, Image } from '@tarojs/components';
 import React, { useState } from 'react';
 import FreeChair from '../../assets/icons/chair-free.png';
-import BusyChair from '../../assets/icons/chair-free.png';
+import BusyChair from '../../assets/icons/chair-busy.png';
 import SelectedChair from '../../assets/icons/chair-free.png';
 import ArrowLeft from '../../assets/icons/chair-free.png';
 import InfoIcon from '../../assets/icons/chair-free.png';
@@ -24,13 +24,6 @@ const AppointPage: React.FC = () => {
 
   return (
     <View className="appoint-page">
-      <View className="appoint-navbar">
-        <Image className="appoint-back" src={ArrowLeft} />
-        <Text className="appoint-title">自习室预约</Text>
-        <View className="appoint-navbar-actions">
-          <Image className="appoint-navbar-action" src={InfoIcon} />
-        </View>
-      </View>
       <View className="appoint-mode-row">
         <Text className="appoint-mode-label">预约方式：</Text>
         <View className="appoint-mode-btn">天</View>

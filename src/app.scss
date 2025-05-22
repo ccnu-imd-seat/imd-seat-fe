@@ -2,3 +2,10 @@
 @use 'tailwindcss/base';
 @use 'tailwindcss/components';
 @use 'tailwindcss/utilities';
+
+
+page, .taro_page {
+  position: relative;
+  min-height: 100vh;
+  overflow: visible;
+}
