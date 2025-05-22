@@ -3,7 +3,7 @@ export default defineAppConfig({
     'pages/index/index',
     'pages/login/index',
     'pages/scan/index',
-    'pages/appoint/index'
+    'pages/appoint/index',
   ],
   tabBar: {
     list: [
@@ -18,8 +18,8 @@ export default defineAppConfig({
         text: '预约',
         iconPath: 'assets/tabbar/appoint.png',
         selectedIconPath: 'assets/tabbar/appoint-selected.png',
-      }
-    ]
+      },
+    ],
   },
   window: {
     backgroundTextStyle: 'light',

@@ -5,7 +5,6 @@ import { Button } from '@taroify/core';
 import React from 'react';
 
 const LoginPage: React.FC = () => {
-
   return (
     <View className="login-page">
       <Image className="login-bg" src={pageBg} mode="aspectFill" />
@@ -17,17 +16,19 @@ const LoginPage: React.FC = () => {
       <View className="login-form-card">
         <View className="login-form">
           <Input className="login-input" placeholder="请输入你的学号" />
-          <View className='line'/>
-          <Input className="login-input" placeholder="请输入你的一站式密码" password />
-          <View className='line'/>
+          <View className="line" />
+          <Input
+            className="login-input"
+            placeholder="请输入你的一站式密码"
+            password
+          />
+          <View className="line" />
           <Button className="login-btn" color="primary" block>
             登 录
           </Button>
         </View>
       </View>
-      <View className="login-footer">
-        共享自习资源预约管理平台
-      </View>
+      <View className="login-footer">共享自习资源预约管理平台</View>
     </View>
   );
 };

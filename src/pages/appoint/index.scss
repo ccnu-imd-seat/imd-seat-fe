@@ -1,4 +1,6 @@
+// 预约页面整体布局
 .appoint-page {
+  position: relative;
   min-height: 100vh;
   background: #fff;
   display: flex;
@@ -6,239 +8,296 @@
   align-items: center;
   padding-bottom: 16px;
   box-sizing: border-box;
+
+  // 预约方式行
+  .appoint-mode-row {
+    width: 100%;
+    height: 71px;
+    background: #e6f4ff;
+    padding: 10px 18px 8px 18px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    box-sizing: border-box;
+
+    .appoint-mode-label {
+      font-family: AlibabaPuHuiTi, AlibabaPuHuiTi;
+      font-weight: 400;
+      font-size: 18px;
+      color: #03537e;
+      line-height: 25px;
+      letter-spacing: 1px;
+      text-align: left;
+      font-style: normal;
+      text-transform: none;
+      margin-right: 4px;
+    }
+
+    .appoint-mode-btn {
+      width: 60px;
+      height: 25px;
+      background: #ffffff;
+      box-shadow: inset 0px 0px 2px 0px rgba(0, 0, 0, 0.3);
+      border-radius: 15px;
+      padding: 2px 18px;
+      font-family: AlibabaPuHuiTi, AlibabaPuHuiTi;
+      font-weight: 400;
+      font-size: 18px;
+      color: #3d3d3d;
+      line-height: 25px;
+      letter-spacing: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-style: normal;
+      text-transform: none;
+      margin-right: 25%;
+      cursor: pointer;
+    }
+
+    .appoint-status-labels {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+
+      .appoint-status-label {
+        font-size: 15px;
+        border-radius: 10px;
+        padding: 2px 12px;
+        color: #fff;
+        margin-left: 2px;
+
+        &.free {
+          width: 60px;
+          height: 25px;
+          background: #87e58d;
+          border-radius: 15px;
+          font-family: AlibabaPuHuiTi, AlibabaPuHuiTi;
+          font-weight: 400;
+          font-size: 14px;
+          color: #29611e;
+          line-height: 19px;
+          letter-spacing: 1px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-style: normal;
+          text-transform: none;
+        }
+
+        &.busy {
+          width: 60px;
+          height: 25px;
+          background: #ffae6c;
+          border-radius: 15px;
+          font-family: AlibabaPuHuiTi, AlibabaPuHuiTi;
+          font-weight: 400;
+          font-size: 14px;
+          color: #b34c1d;
+          line-height: 19px;
+          letter-spacing: 1px;
+          font-style: normal;
+          text-transform: none;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+      }
+    }
+  }
+
+  // 日期选择行
+  .appoint-date-row {
+    width: 100%;
+    height: 48px;
+    background: #afe3ff;
+    display: flex;
+    align-items: center;
+    padding: 0 18px;
+    box-sizing: border-box;
+    gap: 8px;
+
+    .appoint-date-week {
+      width: 284px;
+      height: 25px;
+      font-family: AlibabaPuHuiTi, AlibabaPuHuiTi;
+      font-weight: 400;
+      font-size: 18px;
+      color: #3d3d3d;
+      line-height: 25px;
+      letter-spacing: 1px;
+      text-align: left;
+      font-style: normal;
+      text-transform: none;
+    }
+
+    .appoint-date-month {
+      width: 69px;
+      height: 25px;
+      font-family: AlibabaPuHuiTi, AlibabaPuHuiTi;
+      font-weight: 400;
+      font-size: 20px;
+      color: #000000;
+      line-height: 27px;
+      letter-spacing: 2px;
+      text-align: left;
+      font-style: normal;
+      text-transform: none;
+    }
+
+    .appoint-date-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 10px;
+      background: transparent;
+      font-family: AlibabaPuHuiTi, AlibabaPuHuiTi;
+      font-weight: 400;
+      font-size: 18px;
+      color: #3d3d3d;
+      line-height: 25px;
+      letter-spacing: 1px;
+      text-align: left;
+      font-style: normal;
+      text-transform: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 2px;
+      transition:
+        background 0.2s,
+        color 0.2s;
+
+      &.active {
+        font-weight: 600;
+        background: #79cdfa;
+      }
+    }
+  }
+
+  // 教室选择行
+  .appoint-room-row {
+    width: 100%;
+    height: 51px;
+    background: #e4f6ff;
+    display: flex;
+    align-items: center;
+    padding: 10px 18px;
+    box-sizing: border-box;
+    font-size: 16px;
+    color: #222;
+    gap: 8px;
+
+    .appoint-room-label {
+      font-family: AlibabaPuHuiTi, AlibabaPuHuiTi;
+      font-weight: 500;
+      font-size: 18px;
+      color: #036ca4;
+      line-height: 25px;
+      letter-spacing: 1px;
+      text-align: left;
+      font-style: normal;
+      text-transform: none;
+    }
+
+    .appoint-room-value {
+      font-family: AlibabaPuHuiTi, AlibabaPuHuiTi;
+      font-weight: 400;
+      font-size: 20px;
+      color: #3d3d3d;
+      line-height: 27px;
+      letter-spacing: 2px;
+      text-align: left;
+      font-style: normal;
+      text-transform: none;
+      margin-right: 35%;
+    }
+
+    .appoint-rule-btn {
+      width: 95px;
+      height: 27px;
+      display: flex;
+      align-items: center;
+      background: #ffd0b7;
+      border-radius: 12px;
+      padding: 2px 12px;
+      font-family: AlibabaPuHuiTi, AlibabaPuHuiTi;
+      font-weight: 400;
+      font-size: 12px;
+      color: #a2411a;
+      line-height: 16px;
+      letter-spacing: 1px;
+      text-align: left;
+      font-style: normal;
+      text-transform: none;
+      margin-left: 10px;
+      gap: 4px;
+
+      .appoint-rule-icon {
+        width: 18px;
+        height: 18px;
+      }
+    }
+  }
+
+  // 返回箭头行
+  .appoint-arrow-row {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding: 0 18px;
+    margin: 10px 0;
+    box-sizing: border-box;
+    gap: 8px;
+    justify-content: flex-start;
+    position: relative;
+
+    .appoint-return-icon {
+      width: 20px;
+      height: 32px;
+      display: flex;
+      cursor: pointer;
+      margin-bottom: 8px;
+      margin-left: 18px;
+      align-items: center;
+      justify-content: flex-start;
+    }
+
+    .appoint-arrow-left {
+      width: 28px;
+      height: 28px;
+    }
+  }
+
+  // 日期标题行
+  .appoint-date-title-row {
+    width: 100%;
+    display: flex;
+    padding-left: 10%;
+    align-items: center;
+    margin-bottom: 8px;
+
+    .appoint-date-title {
+      font-family: AlibabaPuHuiTi, AlibabaPuHuiTi;
+      font-weight: 500;
+      font-size: 24px;
+      color: #000000;
+      line-height: 33px;
+      letter-spacing: 2px;
+      text-align: center;
+      font-style: normal;
+      text-transform: none;
+    }
+  }
+
+  // 座位区
+  .appoint-seat-area {
+    width: 100%;
+    max-width: 340px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 18px 10px;
+    justify-items: center;
+    margin-top: 8px;
+  }
 }
-
-.appoint-navbar {
-  width: 100%;
-  height: 48px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  background: transparent;
-  margin-bottom: 8px;
-}
-
-.appoint-back {
-  position: absolute;
-  left: 16px;
-  top: 10px;
-  width: 24px;
-  height: 24px;
-}
-
-.appoint-title {
-  font-size: 22px;
-  font-weight: 500;
-  color: #222;
-  text-align: center;
-  flex: 1;
-}
-
-.appoint-navbar-actions {
-  position: absolute;
-  right: 16px;
-  top: 10px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.appoint-navbar-action {
-  width: 24px;
-  height: 24px;
-}
-
-.appoint-mode-row {
-  width: 100%;
-  background: #e6f4ff;
-  padding: 10px 18px 8px 18px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  box-sizing: border-box;
-}
-
-.appoint-mode-label {
-  font-size: 16px;
-  color: #222;
-  margin-right: 4px;
-}
-
-.appoint-mode-btn {
-  background: #fff;
-  border-radius: 12px;
-  padding: 2px 18px;
-  font-size: 16px;
-  color: #222;
-  margin-right: 18px;
-  box-shadow: 0 2px 8px 0 rgba(80, 180, 255, 0.10);
-}
-
-.appoint-status-labels {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.appoint-status-label {
-  font-size: 15px;
-  border-radius: 10px;
-  padding: 2px 12px;
-  color: #fff;
-  margin-left: 2px;
-}
-
-.appoint-status-label.free {
-  background: #6be18d;
-}
-
-.appoint-status-label.busy {
-  background: #ff8d6b;
-}
-
-.appoint-date-row {
-  width: 100%;
-  background: #b7e2ff;
-  display: flex;
-  align-items: center;
-  padding: 0 18px;
-  box-sizing: border-box;
-  height: 48px;
-  gap: 8px;
-}
-
-.appoint-date-month {
-  font-size: 18px;
-  color: #222;
-  font-weight: 500;
-  margin-right: 10px;
-}
-
-.appoint-date-btn {
-  width: 32px;
-  height: 32px;
-  border-radius: 8px;
-  background: transparent;
-  color: #222;
-  font-size: 16px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-right: 2px;
-  transition: background 0.2s, color 0.2s;
-}
-
-.appoint-date-btn.active {
-  background: #6bbcff;
-  color: #fff;
-  font-weight: 600;
-}
-
-.appoint-room-row {
-  width: 100%;
-  background: #e6f4ff;
-  display: flex;
-  align-items: center;
-  padding: 10px 18px;
-  box-sizing: border-box;
-  font-size: 16px;
-  color: #222;
-  gap: 8px;
-}
-
-.appoint-room-label {
-  font-weight: 500;
-}
-
-.appoint-room-value {
-  font-weight: bold;
-  color: #036ca4;
-  margin-right: 10px;
-}
-
-.appoint-rule-btn {
-  display: flex;
-  align-items: center;
-  background: #ffecd9;
-  color: #ff8d6b;
-  border-radius: 12px;
-  padding: 2px 12px;
-  font-size: 15px;
-  margin-left: 10px;
-  gap: 4px;
-}
-
-.appoint-rule-icon {
-  width: 18px;
-  height: 18px;
-}
-
-.appoint-arrow-row {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  padding: 0 18px;
-  margin: 10px 0 0 0;
-  box-sizing: border-box;
-  gap: 8px;
-}
-
-.appoint-arrow-left {
-  width: 28px;
-  height: 28px;
-}
-
-.appoint-date-title {
-  font-size: 20px;
-  color: #222;
-  font-weight: 500;
-  margin-left: 8px;
-}
-
-.appoint-seat-area {
-  width: 100%;
-  max-width: 340px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 18px 10px;
-  justify-items: center;
-  margin-top: 8px;
-}
-
-.appoint-seat {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  cursor: pointer;
-  opacity: 0.7;
-}
-
-.appoint-seat.free {
-  opacity: 1;
-}
-
-.appoint-seat.selected {
-  opacity: 1;
-  border: 2px solid #6be18d;
-  border-radius: 12px;
-  background: #e6ffe6;
-}
-
-.appoint-seat.busy {
-  opacity: 1;
-}
-
-.appoint-seat-icon {
-  width: 38px;
-  height: 38px;
-}
-
-.appoint-seat-num {
-  font-size: 13px;
-  color: #888;
-  margin-top: 2px;
-}
-
-

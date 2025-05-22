@@ -1,40 +1,48 @@
 import './index.scss';
-import { View, Text, Button, Input, Image } from '@tarojs/components';
-import cancel from '../../assets/icons/cancel.png';
+import { View, Text, Button } from '@tarojs/components';
 
 interface SelectDialogProps {
   open: boolean;
-  onClose: () => void;
-  onSubmit: () => void;
+  onCancel: () => void;
+  onConfirm: () => void;
+  roomNo: string | number;
+  seatNo: string | number;
+  date: string;
 }
 
-const SelectDialog = ({ open, onClose, onSubmit }: SelectDialogProps) => {
+// 选择座位弹窗
+const SelectDialog: React.FC<SelectDialogProps> = ({
+  open,
+  onCancel,
+  onConfirm,
+  roomNo,
+  seatNo,
+  date,
+}) => {
   if (!open) return null;
   return (
-    <View className="suggest-dialog__mask">
-      <View className="suggest-dialog__container">
-        <Image
-          className="suggest-dialog__close"
-          src={cancel}
-          onClick={onClose}
-        />
-        <View className="suggest-dialog__content">
-          <Text>今天发生了什么让你皱眉的瞬间？</Text>
-          <Text>我们准备好了倾听的耳朵和修改的笔尖~</Text>
-          <View className="suggest-dialog__input-wrapper">
-            <Input
-              className="suggest-dialog__input"
-              type="text"
-              maxlength={200}
-            />
-          </View>
-        </View>
-        <View className="suggest-dialog__actions">
-          <Button
-            className="suggest-dialog__btn"
-            onClick={onSubmit}
+    <View className="select-dialog__mask">
+      <View className="select-dialog__container">
+        <View className="select-dialog__content">
+          <View
+            style={{
+              display: 'flex',
+              flexDirection: 'row',
+              gap: '15px',
+              marginBottom: '20px',
+            }}
           >
-            发送反馈
+            <Text className="room-number">教室：{roomNo}</Text>
+            <Text className="seat-number">座位号：{seatNo}</Text>
+          </View>
+          <Text className="date">日期: {date} </Text>
+        </View>
+        <View className="select-dialog__actions">
+          <Button className="select-dialog__btn1" onClick={onCancel}>
+            取消
+          </Button>
+          <Button className="select-dialog__btn2" onClick={onConfirm}>
+            确认
           </Button>
         </View>
       </View>

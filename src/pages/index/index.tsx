@@ -10,10 +10,12 @@ import SuggestDialog from '../../components/suggestDialog';
 import './index.scss';
 
 export default function Index() {
+  // 当前tab（0: 我的预约, 1: 违约记录）
   const [current, setCurrent] = React.useState(0);
+  // 建议反馈弹窗开关
   const [suggestOpen, setSuggestOpen] = React.useState(false);
 
-  // 示例数据
+  // 示例预约数据
   const reserveList = [
     {
       condition: true,
@@ -28,6 +30,7 @@ export default function Index() {
       status: '已预约',
     },
   ];
+  // 示例违约数据
   const violationList = [
     {
       condition: false,
@@ -46,13 +49,20 @@ export default function Index() {
   return (
     <>
       <View className="home-page">
+        {/* 背景图片 */}
         <Image className="home-bg" src={homeBg} mode="aspectFill" />
 
+        {/* 顶部操作栏 */}
         <View className="home-header">
-          <View className="home-suggest-box" onClick={() => setSuggestOpen(true)}>
+          {/* 建议反馈按钮 */}
+          <View
+            className="home-suggest-box"
+            onClick={() => setSuggestOpen(true)}
+          >
             <Image className="home-suggest" src={suggest} />
             <Text className="home-suggest-text">建议反馈</Text>
           </View>
+          {/* 扫码签到按钮 */}
           <View
             className="home-scan-box"
             onClick={() => Taro.navigateTo({ url: '/pages/scan/index' })}
@@ -61,6 +71,8 @@ export default function Index() {
             <Text className="home-scan-text">扫码签到</Text>
           </View>
         </View>
+
+        {/* 用户信息卡片 */}
         <View className="home-user-card">
           <View className="home-user-avatar">
             <Image src={avatar} />
@@ -70,6 +82,8 @@ export default function Index() {
             <View className="home-user-id">学号：202421xxxx</View>
           </View>
         </View>
+
+        {/* 预约/违约tab切换 */}
         <View className="home-select-btns">
           <Button
             className={`home-select-btn${current === 0 ? ' active' : ''}`}
@@ -84,6 +98,8 @@ export default function Index() {
             违约记录
           </Button>
         </View>
+
+        {/* 预约/违约记录列表 */}
         <View className="record-list">
           {(current === 0 ? reserveList : violationList).length === 0 ? (
             <View className="record-list__empty">
@@ -102,6 +118,7 @@ export default function Index() {
           )}
         </View>
       </View>
+      {/* 建议反馈弹窗 */}
       <SuggestDialog
         open={suggestOpen}
         onClose={() => setSuggestOpen(false)}

@@ -1,5 +1,6 @@
 import './index.scss';
 import { View, Text, Button, Input, Image } from '@tarojs/components';
+import React from 'react';
 import cancel from '../../assets/icons/cancel.png';
 
 interface SuggestDialogProps {
@@ -8,7 +9,12 @@ interface SuggestDialogProps {
   onSubmit: () => void;
 }
 
-const SuggestDialog = ({ open, onClose, onSubmit }: SuggestDialogProps) => {
+// 建议反馈弹窗
+const SuggestDialog: React.FC<SuggestDialogProps> = ({
+  open,
+  onClose,
+  onSubmit,
+}) => {
   if (!open) return null;
   return (
     <View className="suggest-dialog__mask">
@@ -30,10 +36,7 @@ const SuggestDialog = ({ open, onClose, onSubmit }: SuggestDialogProps) => {
           </View>
         </View>
         <View className="suggest-dialog__actions">
-          <Button
-            className="suggest-dialog__btn"
-            onClick={onSubmit}
-          >
+          <Button className="suggest-dialog__btn" onClick={onSubmit}>
             发送反馈
           </Button>
         </View>

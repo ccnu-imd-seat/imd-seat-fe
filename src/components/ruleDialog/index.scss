@@ -1,4 +1,4 @@
-.suggest-dialog__mask {
+.rule-dialog__mask {
   position: fixed;
   z-index: 9999;
   top: 0;
@@ -13,15 +13,14 @@
   justify-content: center;
 }
 
-.suggest-dialog__container {
+.rule-dialog__container {
   position: relative;
-  width: 351px;
-  height: 263px;
-  background: #C3F0FF;
-  box-shadow: -15px 8px 5px 0px rgba(0, 0, 0, 0.07);
-  border-radius: 25px 25px 25px 25px;
-  max-width: 320px;
-  width: 90vw;
+  width: 360px;
+  height: 371px;
+  background: #e6f9ff;
+  box-shadow: -9px 6px 1px 0px rgba(0, 0, 0, 0.13);
+  border-radius: 25px;
+
   box-sizing: border-box;
   padding: 32px 24px 24px 24px;
   display: flex;
@@ -29,7 +28,7 @@
   align-items: center;
 }
 
-.suggest-dialog__close {
+.rule-dialog__close {
   position: absolute;
   top: 10px;
   right: 10px;
@@ -39,63 +38,34 @@
   cursor: pointer;
 }
 
-.suggest-dialog__content {
+.rule-dialog__content {
   font-family: AlibabaPuHuiTi, AlibabaPuHuiTi;
   font-weight: 400;
-  font-size: 16px;
-  color: #036CA4;
-  line-height: 22px;
+  font-size: 18px;
+  color: #3d3d3d;
+  line-height: 25px;
   letter-spacing: 1px;
-  text-align: left;
+
   font-style: normal;
   text-transform: none;
   text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding:20px 0px 0px 0px;
+  padding: 20px 0px 0px 0px;
   gap: 8px;
 }
 
-.suggest-dialog__input-wrapper {
-  width: 90%;
-  margin-top: 10px;
-  display: flex;
-  background: #C3F0FF;
-  box-shadow: -15px 8px 5px 0px rgba(0, 0, 0, 0.07);
-  border-radius: 25px;
-  border: 2px solid #4DABDC;
-  justify-content: center;
-}
-
-.suggest-dialog__input {
-  width: 260px;
-  border-radius: 25px;
-  background: #fff;
-  color: #222;
-  padding: 10px 12px;
-  font-size: 16px;
-  border: none;
-  outline: none;
-}
-
-.suggest-dialog__actions {
-  display: flex;
-  justify-content: center;
-  gap: 16px;
-  margin-top: 20px;
+.rule-dialog__title {
   width: 100%;
-}
-
-.suggest-dialog__btn {
-  background: #fff !important;
-  color: #1976d2 !important;
-  border-radius: 24px !important;
-  min-width: 80px;
-  font-weight: bold;
-  font-size: 16px;
-  border: none;
-  height: 40px;
-  line-height: 40px;
-  padding: 0 24px;
+  text-align: center;
+  font-family: AlibabaPuHuiTi, AlibabaPuHuiTi;
+  font-weight: 700;
+  font-size: 24px;
+  color: #3d3d3d;
+  line-height: 33px;
+  letter-spacing: 12px;
+  font-style: normal;
+  text-transform: none;
+  margin: 16px 0 8px 0;
 }

@@ -8,7 +8,7 @@ const ScanPage = () => {
   const handleScan = async () => {
     try {
       const res = await Taro.scanCode({
-        onlyFromCamera: true // 只允许摄像头扫码
+        onlyFromCamera: true, // 只允许摄像头扫码
       });
       setResult(res.result || '未获取到扫码内容');
     } catch (e) {
@@ -17,8 +17,10 @@ const ScanPage = () => {
   };
 
   return (
-    <View className="scan-page" style={{ padding: '40px', textAlign: 'center' }}>
-
+    <View
+      className="scan-page"
+      style={{ padding: '40px', textAlign: 'center' }}
+    >
       <View style={{ marginTop: '32px', fontSize: '16px', color: '#333' }}>
         <Text>扫码结果：</Text>
         <Text>{result}</Text>
@@ -28,4 +30,3 @@ const ScanPage = () => {
 };
 
 export default ScanPage;
-

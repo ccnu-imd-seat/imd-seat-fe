@@ -1,4 +1,4 @@
-@use "sass:math";
+@use 'sass:math';
 
 .login-page {
   min-height: 100vh;
@@ -32,7 +32,7 @@
 .login-header {
   margin-bottom: 85px;
   width: 100%;
-  padding:0 0 0 15px;
+  padding: 0 0 0 15px;
   box-sizing: border-box;
 }
 
@@ -46,7 +46,7 @@
 
 .login-greet {
   font-size: 36px;
-  color: #09A9FF ;
+  color: #09a9ff;
   margin-bottom: 15px;
   font-weight: 400;
   font-family: AlibabaPuHuiTi-Regular, 'Consolas', 'Menlo', 'Monaco', monospace;
@@ -58,16 +58,21 @@
   font-weight: 400;
   font-family: AlibabaPuHuiTi-Regular, 'Consolas', 'Menlo', 'Monaco', monospace;
   letter-spacing: 2px;
-  color: #447179 ;
+  color: #447179;
 }
 
 .login-form-card {
   position: relative; // 保证伪元素定位生效
   width: 96%;
   height: 663px;
-  background: linear-gradient( 180deg, #FFFFFF 0%, #FFFFFF 64%, rgba(255,255,255,0) 100%);
+  background: linear-gradient(
+    180deg,
+    #ffffff 0%,
+    #ffffff 64%,
+    rgba(255, 255, 255, 0) 100%
+  );
   border-radius: 27px;
-  padding:102px 75px 0px 52px;
+  padding: 102px 75px 0px 52px;
   margin: 0 auto 32px auto;
   position: relative;
   display: flex;
@@ -75,16 +80,14 @@
   overflow: hidden;
 }
 
-
 // 保证表单内容在背景图片之上
 .login-form {
   width: 100%;
   display: flex;
   flex-direction: column;
-  padding:102 75 0 52;
+  padding: 102 75 0 52;
   position: relative;
 }
-
 
 .login-input {
   width: 100%;
@@ -92,7 +95,7 @@
   font-family: AlibabaPuHuiTi, AlibabaPuHuiTi;
   font-weight: 400;
   font-size: 16px;
-  color: #6F6F6F;
+  color: #6f6f6f;
   line-height: 19px;
   letter-spacing: 1px;
   text-align: left;
@@ -101,22 +104,22 @@
   margin-bottom: 7px;
 }
 
-.line{
-   width: 100%;
+.line {
+  width: 100%;
   height: 0;
-  border: 2px solid #79CDFA;
-  background-color: #79CDFA;
+  border: 2px solid #79cdfa;
+  background-color: #79cdfa;
   margin-bottom: 63px;
 }
 
 .login-btn {
   height: 41px;
-   width: 100%;
-  background: linear-gradient(270deg, #A9EAFF 0%, #DCFFFE 48%, #79CDFA 100%);
+  width: 100%;
+  background: linear-gradient(270deg, #a9eaff 0%, #dcfffe 48%, #79cdfa 100%);
   font-family: AlibabaPuHuiTi, AlibabaPuHuiTi;
   font-weight: 500;
   font-size: 24px;
-  color: #036CA4;
+  color: #036ca4;
   margin-top: 15px;
   line-height: 41px;
   letter-spacing: 10px;
@@ -125,7 +128,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 8px 24px 0 rgba(80, 180, 255, 0.18), 0 4px 16px 0 rgba(0,0,0,0.16);
+  box-shadow:
+    0 8px 24px 0 rgba(80, 180, 255, 0.18),
+    0 4px 16px 0 rgba(0, 0, 0, 0.16);
 }
 
 .login-footer {
@@ -133,7 +138,7 @@
   bottom: 8px;
   width: 100%;
   text-align: center;
-  color: #8AABCA ;
+  color: #8aabca;
   font-size: 18px;
   letter-spacing: 2px;
 }

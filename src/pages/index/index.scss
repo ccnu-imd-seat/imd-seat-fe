@@ -1,198 +1,191 @@
+// 首页整体布局
 .home-page {
   position: relative;
   min-height: 100vh;
-  background-color: #F0F0F0 ;
+  background-color: #f0f0f0;
   display: flex;
   flex-direction: column;
   align-items: center;
   padding-bottom: 20px;
   box-sizing: border-box;
   overflow-y: hidden;
+
+  // 背景图片样式
+  .home-bg {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    object-fit: cover;
+    object-position: right top;
+    pointer-events: none;
+  }
+
+  // 保证内容在背景图片之上
+  > *:not(.home-bg) {
+    position: relative;
+    z-index: 1;
+  }
+
+  // 顶部栏
+  .home-header {
+    position: relative;
+    width: 100%;
+    height: 60px;
+  }
+
+  // 意见反馈按钮区域
+  .home-suggest-box {
+    position: absolute;
+    left: 18px;
+    top: 6px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .home-suggest {
+      width: 40px;
+      height: 40px;
+    }
+    .home-suggest-text {
+      font-size: 13px;
+      color: #09a9ff;
+      letter-spacing: 1px;
+    }
+  }
+
+  // 扫码按钮区域
+  .home-scan-box {
+    position: absolute;
+    right: 18px;
+    top: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .home-scan {
+      width: 30px;
+      height: 30px;
+    }
+    .home-scan-text {
+      font-size: 13px;
+      color: #09a9ff;
+      margin-top: 5px;
+      letter-spacing: 1px;
+    }
+  }
+
+  // 用户卡片
+  .home-user-card {
+    width: 92%;
+    max-width: 420px;
+    border-radius: 22px;
+    padding: 0px 18px 18px 18px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: -30px;
+
+    .home-user-avatar {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 8px;
+      box-shadow: 0 2px 8px 0 rgba(80, 180, 255, 0.1);
+      overflow: hidden;
+
+      image {
+        width: 48px;
+        height: 48px;
+      }
+    }
+
+    .home-user-info {
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      .home-user-name {
+        font-family: AlibabaPuHuiTi, AlibabaPuHuiTi;
+        font-weight: 500;
+        font-size: 24px;
+        color: #054263;
+        line-height: 33px;
+        letter-spacing: 6px;
+        text-align: left;
+        font-style: normal;
+        text-transform: none;
+        margin-bottom: 11px;
+      }
+
+      .home-user-id {
+        font-family: AlibabaPuHuiTi, AlibabaPuHuiTi;
+        font-weight: 500;
+        font-size: 18px;
+        color: #03537e;
+        line-height: 25px;
+        letter-spacing: 4px;
+        text-align: left;
+        font-style: normal;
+        text-transform: none;
+      }
+    }
+  }
+
+  // 选择按钮区域
+  .home-select-btns {
+    display: flex;
+    flex-direction: row;
+    gap: 19px;
+
+    .home-select-btn,
+    .home-select-btn.active {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 186px;
+      height: 58px;
+      border-radius: 30px;
+      font-family: AlibabaPuHuiTi, AlibabaPuHuiTi;
+      font-weight: 500;
+      font-size: 20px;
+      color: #3d3d3d;
+      line-height: 27px;
+      letter-spacing: 6px;
+      font-style: normal;
+      text-transform: none;
+      background: transparent;
+      box-shadow: none;
+      border: none;
+      outline: none;
+    }
+
+    .home-select-btn.active {
+      background: #ffffff;
+      box-shadow: -2px 3px 5px 0px #a6a6a6;
+      font-size: 24px;
+      line-height: 33px;
+      letter-spacing: 7px;
+    }
+  }
+
+  // 记录列表区域
+  .record-list {
+    width: 92%;
+    max-width: 420px;
+    min-height: 600px;
+    background: #ffffff;
+    border-radius: 25px;
+    padding: 18px;
+    margin: 18px auto 0 auto;
+  }
 }
-
-.home-bg {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 0;
-  object-fit: cover;
-  object-position: right top;
-  pointer-events: none;
-}
-
-// 保证内容在背景图片之上
-.home-page>*:not(.home-bg) {
-  position: relative;
-  z-index: 1;
-}
-
-.home-header {
-  position: relative;
-  width: 100%;
-  height: 60px;
-}
-
-.home-suggest-box {
-  position: absolute;
-  left: 18px;
-  top: 6px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.home-suggest {
-  width: 40px; // 修改为你想要的大小
-  height: 40px;
-}
-
-.home-suggest-text {
-  font-size: 13px;
-  color: #09A9FF;
-  letter-spacing: 1px;
-}
-
-.home-scan-box {
-  position: absolute;
-  right: 18px;
-  top: 12px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.home-scan {
-  width: 30px; // 修改为你想要的大小
-  height: 30px;
-}
-
-.home-scan-text {
-  font-size: 13px;
-  color: #09A9FF;
-  margin-top: 6px;
-  letter-spacing: 1px;
-}
-
-.home-user-card {
-  width: 92%;
-  max-width: 420px;
-  border-radius: 22px;
-  padding: 0px 18px 18px 18px;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  margin-top: -30px;
-}
-
-.home-user-avatar {
-  width: 64px;
-  height: 64px;
-  border-radius: 50%;
-  background: #fff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 8px;
-  box-shadow: 0 2px 8px 0 rgba(80, 180, 255, 0.10);
-  overflow: hidden;
-}
-
-.home-user-avatar image {
-  width: 48px;
-  height: 48px;
-}
-
-.home-user-info {
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.home-user-name {
-  font-family: AlibabaPuHuiTi, AlibabaPuHuiTi;
-  font-weight: 500;
-  font-size: 24px;
-  color: #054263;
-  line-height: 33px;
-  letter-spacing: 6px;
-  text-align: left;
-  font-style: normal;
-  text-transform: none;
-  margin-bottom: 11px;
-}
-
-.home-user-id {
-  font-family: AlibabaPuHuiTi, AlibabaPuHuiTi;
-  font-weight: 500;
-  font-size: 18px;
-  color: #03537E;
-  line-height: 25px;
-  letter-spacing: 4px;
-  text-align: left;
-  font-style: normal;
-  text-transform: none;
-}
-
-
-.home-select-btns {
-  display: flex;
-  flex-direction: row;
-  gap:19px;
-
-}
-
-.home-select-btn.active {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 186px;
-  height: 58px;
-  background: #FFFFFF; // 按钮背景为白色
-  box-shadow: -2px 3px 5px 0px #A6A6A6;
-  border-radius: 30px;
-  font-family: AlibabaPuHuiTi, AlibabaPuHuiTi;
-  font-weight: 500;
-  font-size: 24px;
-  line-height: 33px;
-  letter-spacing: 7px;
-  text-align: left;
-  font-style: normal;
-  text-transform: none;
-}
-
-.home-select-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 186px;
-  height: 58px;
-  border-radius: 30px;
-  font-family: AlibabaPuHuiTi, AlibabaPuHuiTi;
-  font-weight: 500;
-  font-size: 20px;
-  color: #3D3D3D;
-  line-height: 27px;
-  letter-spacing: 6px;
-  font-style: normal;
-  text-transform: none;
-  background: transparent;
-  box-shadow: none;
-  border: none;
-  outline: none;
-}
-
-.record-list {
-  width: 92%;
-  max-width: 420px;
-  min-height: 600px;
-  background: #FFFFFF;
-  border-radius: 25px;
-  padding: 18px ;
-  margin: 18px auto 0 auto;
-}
-
