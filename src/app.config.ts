@@ -6,6 +6,8 @@ export default defineAppConfig({
     'pages/appoint/index',
   ],
   tabBar: {
+    color: '#6F6F6F',
+    selectedColor: '#4199E0',
     list: [
       {
         pagePath: 'pages/index/index',
