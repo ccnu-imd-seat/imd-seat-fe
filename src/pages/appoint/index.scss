@@ -17,6 +17,7 @@
     padding: 10px 18px 8px 18px;
     display: flex;
     align-items: center;
+    justify-content: space-between;
     gap: 10px;
     box-sizing: border-box;
 
@@ -31,6 +32,7 @@
       font-style: normal;
       text-transform: none;
       margin-right: 4px;
+      white-space: nowrap;
     }
 
     .appoint-mode-btn {
@@ -51,7 +53,6 @@
       justify-content: center;
       font-style: normal;
       text-transform: none;
-      margin-right: 25%;
       cursor: pointer;
     }
 
@@ -197,6 +198,7 @@
       text-align: left;
       font-style: normal;
       text-transform: none;
+			white-space: nowrap;
     }
 
     .appoint-room-value {

@@ -1,5 +1,4 @@
 import { View, Text, Image } from '@tarojs/components';
-import Taro from '@tarojs/taro';
 import React, { useState } from 'react';
 import Horn from '../../assets/icons/horn.png';
 import SelectDialog from '../../components/selectDialog';
@@ -60,6 +59,7 @@ const AppointPage: React.FC = () => {
               天
             </View>
           )}
+          <View style={{ flex: 1 }}></View>
           <View className="appoint-status-labels">
             <View className="appoint-status-label free">空闲</View>
             <View className="appoint-status-label busy">忙碌</View>

@@ -23,12 +23,6 @@
     pointer-events: none;
   }
 
-  // 保证内容在背景图片之上
-  > *:not(.home-bg) {
-    position: relative;
-    z-index: 1;
-  }
-
   // 顶部栏
   .home-header {
     position: relative;
@@ -143,6 +137,7 @@
 
   // 选择按钮区域
   .home-select-btns {
+    position: relative;
     display: flex;
     flex-direction: row;
     gap: 19px;
@@ -180,6 +175,7 @@
 
   // 记录列表区域
   .record-list {
+    position: relative;
     width: 92%;
     max-width: 420px;
     min-height: 600px;

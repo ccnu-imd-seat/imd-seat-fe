@@ -87,12 +87,14 @@ export default function Index() {
         <View className="home-select-btns">
           <Button
             className={`home-select-btn${current === 0 ? ' active' : ''}`}
+            plain
             onClick={() => setCurrent(0)}
           >
             我的预约
           </Button>
           <Button
             className={`home-select-btn${current === 1 ? ' active' : ''}`}
+            plain
             onClick={() => setCurrent(1)}
           >
             违约记录
