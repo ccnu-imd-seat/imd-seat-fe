@@ -13,7 +13,8 @@
     "build": "taro build --type weapp",
     "dev": "taro build --type weapp --watch",
     "postinstall": "weapp-tw patch",
-    "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx,scss,css,md}\""
+    "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx,scss,css,md}\"",
+    "gen:types": "openapi-ts \"./openapi.json\" -o \"src/types/openapi.d.ts\""
   },
   "browserslist": [
     "defaults and fully supports es6-module",
@@ -54,6 +55,7 @@
     "eslint-config-taro": "4.0.12",
     "eslint-plugin-react": "^7.34.1",
     "eslint-plugin-react-hooks": "^4.4.0",
+    "openapi-ts": "^0.3.4",
     "postcss": "^8.4.38",
     "prettier": "^3.5.3",
     "react-refresh": "^0.14.0",

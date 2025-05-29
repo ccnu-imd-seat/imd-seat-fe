@@ -1,0 +1,1042 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "zone",
+    "description": "",
+    "version": "1.0.0"
+  },
+  "tags": [],
+  "paths": {
+    "/api/v1/login": {
+      "post": {
+        "summary": "登录",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "username": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "username",
+                  "password"
+                ]
+              },
+              "example": {
+                "username": "111",
+                "password": "abc"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string"
+                        },
+                        "student_id": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "name",
+                        "student_id"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                    "data"
+                  ]
+                },
+                "example": {
+                  "code": "111",
+                  "message": "ok",
+                  "data": {
+                    "name": "张三",
+                    "student_id": "2024211111"
+                  }
+                }
+              }
+            },
+            "headers": {
+              "x-jwt-token": {
+                "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdHVkZW50X2lkIjoiMjAyNDIxNDc0NCJ9.SOWMEgrlpWL64WEXqfK-LgJplBMLjJnYLXXJxJyae5Y",
+                "required": false,
+                "description": "",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "security": []
+      }
+    },
+    "/api/v1/reservation/reserve": {
+      "post": {
+        "summary": "预定座位",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "",
+            "required": true,
+            "example": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdHVkZW50X2lkIjoiMjAyNDIxNDc0NCJ9.SOWMEgrlpWL64WEXqfK-LgJplBMLjJnYLXXJxJyae5Y",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "DEBUG_MODE",
+            "in": "header",
+            "description": "传入1以启动debug模式，使预约不受到时间限制",
+            "required": false,
+            "example": "1",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "description": "周和天类型的选择"
+                  },
+                  "date": {
+                    "type": "string",
+                    "description": "天预约模式即预约当天日期，周预约模式即预约当周周一"
+                  },
+                  "seat_id": {
+                    "type": "string"
+                  },
+                  "roomid": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "type",
+                  "date",
+                  "seat_id",
+                  "roomid"
+                ]
+              },
+              "example": {
+                "type": "day",
+                "date": "2025-05-09",
+                "room": "101",
+                "seat_id": 1
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "room": {
+                          "type": "string"
+                        },
+                        "seat": {
+                          "type": "string"
+                        },
+                        "date": {
+                          "type": "string"
+                        },
+                        "type": {
+                          "type": "string"
+                        },
+                        "reservation_id": {
+                          "type": "integer"
+                        }
+                      },
+                      "required": [
+                        "room",
+                        "seat",
+                        "date",
+                        "reservation_id",
+                        "type"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                    "data"
+                  ]
+                },
+                "example": {
+                  "code": 200,
+                  "message": "预约成功",
+                  "data": {
+                    "room": "111",
+                    "seat": "111",
+                    "date": "2025-07-21",
+                    "type": "day",
+                    "reservation_id": 123
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/api/v1/reservation/cancel/{id}": {
+      "delete": {
+        "summary": "取消预约",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "",
+            "required": true,
+            "example": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdHVkZW50X2lkIjoiMjAyNDIxNDc0NCJ9.SOWMEgrlpWL64WEXqfK-LgJplBMLjJnYLXXJxJyae5Y",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/api/v1/reservation/days": {
+      "get": {
+        "summary": "获取可预约日期",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "type",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "example": "day/week",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "",
+            "required": true,
+            "example": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdHVkZW50X2lkIjoiMjAyNDIxNDc0NCJ9.SOWMEgrlpWL64WEXqfK-LgJplBMLjJnYLXXJxJyae5Y",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "dates": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "type": {
+                                "type": "string"
+                              },
+                              "date": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "type",
+                              "date"
+                            ]
+                          }
+                        }
+                      },
+                      "required": [
+                        "dates"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                    "data"
+                  ]
+                },
+                "example": {
+                  "code": 200,
+                  "message": "获取日期成功",
+                  "data": {
+                    "dates": [
+                      {
+                        "type": "day",
+                        "date": "2025-05-08"
+                      },
+                      {
+                        "type": "day",
+                        "date": "2025-05-09"
+                      },
+                      {
+                        "type": "week",
+                        "date": "2025-05-12"
+                      }
+                    ]
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/api/v1/reservation/seats": {
+      "get": {
+        "summary": "获取座位数据",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "date",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "example": "2025-05-08",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "room",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "example": "101",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "",
+            "required": true,
+            "example": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdHVkZW50X2lkIjoiMjAyNDIxNDc0NCJ9.SOWMEgrlpWL64WEXqfK-LgJplBMLjJnYLXXJxJyae5Y",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "room": {
+                          "type": "string"
+                        },
+                        "date": {
+                          "type": "string"
+                        },
+                        "seats": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "seat_id": {
+                                "type": "integer"
+                              },
+                              "status": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "seat_id",
+                              "status"
+                            ]
+                          }
+                        }
+                      },
+                      "required": [
+                        "room",
+                        "date",
+                        "seats"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                    "data"
+                  ]
+                },
+                "example": {
+                  "code": 200,
+                  "message": "获取座位数据成功",
+                  "data": {
+                    "room": "101",
+                    "date": "2025-05-08",
+                    "seats": [
+                      {
+                        "seat_id": 1,
+                        "status": "free"
+                      },
+                      {
+                        "seat_id": 2,
+                        "status": "reserved"
+                      }
+                    ]
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/api/v1/reservation/rooms": {
+      "get": {
+        "summary": "获取可预约房间",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "",
+            "required": true,
+            "example": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdHVkZW50X2lkIjoiMjAyNDIxNDc0NCJ9.SOWMEgrlpWL64WEXqfK-LgJplBMLjJnYLXXJxJyae5Y",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "rooms": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        }
+                      },
+                      "required": [
+                        "rooms"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                    "data"
+                  ]
+                },
+                "example": {
+                  "code": 200,
+                  "message": "获取房间成功",
+                  "data": {
+                    "rooms": [
+                      "n101",
+                      "n102",
+                      "n103"
+                    ]
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/api/v1/mine/reservations": {
+      "get": {
+        "summary": "获取我的预约",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "",
+            "required": true,
+            "example": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdHVkZW50X2lkIjoiMjAyNDIxNDc0NCJ9.SOWMEgrlpWL64WEXqfK-LgJplBMLjJnYLXXJxJyae5Y",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "integer"
+                        },
+                        "type": {
+                          "type": "string"
+                        },
+                        "date": {
+                          "type": "string"
+                        },
+                        "room": {
+                          "type": "string"
+                        },
+                        "seat_id": {
+                          "type": "integer"
+                        },
+                        "status": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "type",
+                        "date",
+                        "room",
+                        "seat_id",
+                        "status"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                    "data"
+                  ]
+                },
+                "example": {
+                  "code": 200,
+                  "message": "获取成功",
+                  "data": {
+                    "id": 123,
+                    "type": "day",
+                    "date": "2025-05-09",
+                    "room": "101",
+                    "seat_id": 1,
+                    "status": "进行中"
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/api/v1/mine/score": {
+      "get": {
+        "summary": "获取信誉分",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "",
+            "required": true,
+            "example": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdHVkZW50X2lkIjoiMjAyNDIxNDc0NCJ9.SOWMEgrlpWL64WEXqfK-LgJplBMLjJnYLXXJxJyae5Y",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "score": {
+                          "type": "integer"
+                        }
+                      },
+                      "required": [
+                        "score"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                    "data"
+                  ]
+                },
+                "example": {
+                  "code": 200,
+                  "message": "success",
+                  "data": {
+                    "score": 300
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/api/v1/feedback": {
+      "post": {
+        "summary": "意见反馈",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "",
+            "required": false,
+            "example": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdHVkZW50X2lkIjoiMjAyNDIxNDc0NCJ9.SOWMEgrlpWL64WEXqfK-LgJplBMLjJnYLXXJxJyae5Y",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "content": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "content"
+                ]
+              },
+              "example": {
+                "content": "建议提前预约时间"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {}
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                    "data"
+                  ]
+                },
+                "example": {
+                  "code": 200,
+                  "message": "提交反馈成功",
+                  "data": {}
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      },
+      "get": {
+        "summary": "获取所有反馈",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "",
+            "required": false,
+            "example": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdHVkZW50X2lkIjoiMjAyNDIxNDc0NCJ9.SOWMEgrlpWL64WEXqfK-LgJplBMLjJnYLXXJxJyae5Ys",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/api/v1/checkin": {
+      "get": {
+        "summary": "扫码签到",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "seat_id",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "",
+            "required": false,
+            "example": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxMjMsInJvbGUiOiJzdHVkZW50IiwiZXhwIjoxNzE3ODUyODAwfQ.WkJljPrpS7j2UJAKrVE-ocM3wS1q7VMCtXXnORRCDzA",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {}
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                    "data"
+                  ]
+                },
+                "example": {
+                  "code": 200,
+                  "message": "success",
+                  "data": {}
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/api/v1/upload": {
+      "post": {
+        "summary": "上传教室及其座位配置及有效时间",
+        "deprecated": false,
+        "description": "上传教室的数据及其所有的座位的数据\n并且这些座位的有效时长",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "",
+            "required": true,
+            "example": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxMjMsInJvbGUiOiJzdHVkZW50IiwiZXhwIjoxNzE3ODUyODAwfQ.WkJljPrpS7j2UJAKrVE-ocM3wS1q7VMCtXXnORRCDzA",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "rooms": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "room": {
+                          "type": "string"
+                        },
+                        "seatid": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        }
+                      },
+                      "required": [
+                        "room",
+                        "seatid"
+                      ]
+                    }
+                  },
+                  "start_time": {
+                    "type": "string"
+                  },
+                  "end_time": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "rooms",
+                  "start_time",
+                  "end_time"
+                ]
+              },
+              "example": {
+                "rooms": [
+                  {
+                    "room": "A101",
+                    "seatid": [
+                      "S1",
+                      "S2",
+                      "S3"
+                    ]
+                  },
+                  {
+                    "room": "B202",
+                    "seatid": [
+                      "S4",
+                      "S5"
+                    ]
+                  }
+                ],
+                "start_time": "2025-06-01",
+                "end_time": "2025-06-05"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "rooms": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "room": {
+                            "type": "string"
+                          },
+                          "seatid": {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        "required": [
+                          "room",
+                          "seatid"
+                        ]
+                      }
+                    },
+                    "start_time": {
+                      "type": "string"
+                    },
+                    "end_time": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "rooms",
+                    "start_time",
+                    "end_time"
+                  ]
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    }
+  },
+  "components": {
+    "schemas": {},
+    "securitySchemes": {}
+  },
+  "servers": [],
+  "security": []
+}
