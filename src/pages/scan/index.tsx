@@ -1,6 +1,6 @@
-import { View, Button, Text } from '@tarojs/components';
+import { View, Text } from '@tarojs/components';
 import Taro from '@tarojs/taro';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 const ScanPage = () => {
   const [result, setResult] = useState<string>('');
@@ -15,6 +15,10 @@ const ScanPage = () => {
       setResult('扫码已取消或失败');
     }
   };
+
+  useEffect(() => {
+    handleScan();
+  }, []);
 
   return (
     <View

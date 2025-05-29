@@ -4,717 +4,717 @@
  */
 
 export interface paths {
-    "/api/v1/login": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /** 登录 */
-        post: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path?: never;
-                cookie?: never;
-            };
-            requestBody?: {
-                content: {
-                    /** @example {
-                     *       "username": "111",
-                     *       "password": "abc"
-                     *     } */
-                    "application/json": {
-                        username: string;
-                        password: string;
-                    };
-                };
-            };
-            responses: {
-                200: {
-                    headers: {
-                        /** @example eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdHVkZW50X2lkIjoiMjAyNDIxNDc0NCJ9.SOWMEgrlpWL64WEXqfK-LgJplBMLjJnYLXXJxJyae5Y */
-                        "x-jwt-token"?: string;
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        /** @example {
-                         *       "code": "111",
-                         *       "message": "ok",
-                         *       "data": {
-                         *         "name": "张三",
-                         *         "student_id": "2024211111"
-                         *       }
-                         *     } */
-                        "application/json": {
-                            code: number;
-                            message: string;
-                            data: {
-                                name: string;
-                                student_id: string;
-                            };
-                        };
-                    };
-                };
-            };
-        };
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+  '/api/v1/login': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/api/v1/reservation/reserve": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
+    get?: never;
+    put?: never;
+    /** 登录 */
+    post: {
+      parameters: {
+        query?: never;
+        header?: never;
+        path?: never;
+        cookie?: never;
+      };
+      requestBody?: {
+        content: {
+          /** @example {
+           *       "username": "111",
+           *       "password": "abc"
+           *     } */
+          'application/json': {
+            username: string;
+            password: string;
+          };
         };
-        get?: never;
-        put?: never;
-        /** 预定座位 */
-        post: {
-            parameters: {
-                query?: never;
-                header: {
-                    /** @example Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdHVkZW50X2lkIjoiMjAyNDIxNDc0NCJ9.SOWMEgrlpWL64WEXqfK-LgJplBMLjJnYLXXJxJyae5Y */
-                    Authorization: string;
-                    /**
-                     * @description 传入1以启动debug模式，使预约不受到时间限制
-                     * @example 1
-                     */
-                    DEBUG_MODE?: string;
-                };
-                path?: never;
-                cookie?: never;
+      };
+      responses: {
+        200: {
+          headers: {
+            /** @example eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdHVkZW50X2lkIjoiMjAyNDIxNDc0NCJ9.SOWMEgrlpWL64WEXqfK-LgJplBMLjJnYLXXJxJyae5Y */
+            'x-jwt-token'?: string;
+            [name: string]: unknown;
+          };
+          content: {
+            /** @example {
+             *       "code": "111",
+             *       "message": "ok",
+             *       "data": {
+             *         "name": "张三",
+             *         "student_id": "2024211111"
+             *       }
+             *     } */
+            'application/json': {
+              code: number;
+              message: string;
+              data: {
+                name: string;
+                student_id: string;
+              };
             };
-            requestBody?: {
-                content: {
-                    /** @example {
-                     *       "type": "day",
-                     *       "date": "2025-05-09",
-                     *       "room": "101",
-                     *       "seat_id": 1
-                     *     } */
-                    "application/json": {
-                        /** @description 周和天类型的选择 */
-                        type: string;
-                        /** @description 天预约模式即预约当天日期，周预约模式即预约当周周一 */
-                        date: string;
-                        seat_id: string;
-                        roomid: string;
-                    };
-                };
-            };
-            responses: {
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        /** @example {
-                         *       "code": 200,
-                         *       "message": "预约成功",
-                         *       "data": {
-                         *         "room": "111",
-                         *         "seat": "111",
-                         *         "date": "2025-07-21",
-                         *         "type": "day",
-                         *         "reservation_id": 123
-                         *       }
-                         *     } */
-                        "application/json": {
-                            code: number;
-                            message: string;
-                            data: {
-                                room: string;
-                                seat: string;
-                                date: string;
-                                type: string;
-                                reservation_id: number;
-                            };
-                        };
-                    };
-                };
-            };
+          };
         };
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+      };
     };
-    "/api/v1/reservation/cancel/{id}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        post?: never;
-        /** 取消预约 */
-        delete: {
-            parameters: {
-                query?: never;
-                header: {
-                    /** @example Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdHVkZW50X2lkIjoiMjAyNDIxNDc0NCJ9.SOWMEgrlpWL64WEXqfK-LgJplBMLjJnYLXXJxJyae5Y */
-                    Authorization: string;
-                };
-                path: {
-                    id: string;
-                };
-                cookie?: never;
-            };
-            requestBody?: never;
-            responses: {
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": Record<string, never>;
-                    };
-                };
-            };
-        };
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/v1/reservation/reserve': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/api/v1/reservation/days": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
+    get?: never;
+    put?: never;
+    /** 预定座位 */
+    post: {
+      parameters: {
+        query?: never;
+        header: {
+          /** @example Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdHVkZW50X2lkIjoiMjAyNDIxNDc0NCJ9.SOWMEgrlpWL64WEXqfK-LgJplBMLjJnYLXXJxJyae5Y */
+          Authorization: string;
+          /**
+           * @description 传入1以启动debug模式，使预约不受到时间限制
+           * @example 1
+           */
+          DEBUG_MODE?: string;
         };
-        /** 获取可预约日期 */
-        get: {
-            parameters: {
-                query?: {
-                    /** @example day/week */
-                    type?: string;
-                };
-                header: {
-                    /** @example Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdHVkZW50X2lkIjoiMjAyNDIxNDc0NCJ9.SOWMEgrlpWL64WEXqfK-LgJplBMLjJnYLXXJxJyae5Y */
-                    Authorization: string;
-                };
-                path?: never;
-                cookie?: never;
-            };
-            requestBody?: never;
-            responses: {
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        /** @example {
-                         *       "code": 200,
-                         *       "message": "获取日期成功",
-                         *       "data": {
-                         *         "dates": [
-                         *           {
-                         *             "type": "day",
-                         *             "date": "2025-05-08"
-                         *           },
-                         *           {
-                         *             "type": "day",
-                         *             "date": "2025-05-09"
-                         *           },
-                         *           {
-                         *             "type": "week",
-                         *             "date": "2025-05-12"
-                         *           }
-                         *         ]
-                         *       }
-                         *     } */
-                        "application/json": {
-                            code: number;
-                            message: string;
-                            data: {
-                                dates: {
-                                    type: string;
-                                    date: string;
-                                }[];
-                            };
-                        };
-                    };
-                };
-            };
+        path?: never;
+        cookie?: never;
+      };
+      requestBody?: {
+        content: {
+          /** @example {
+           *       "type": "day",
+           *       "date": "2025-05-09",
+           *       "room": "101",
+           *       "seat_id": 1
+           *     } */
+          'application/json': {
+            /** @description 周和天类型的选择 */
+            type: string;
+            /** @description 天预约模式即预约当天日期，周预约模式即预约当周周一 */
+            date: string;
+            seat_id: string;
+            roomid: string;
+          };
         };
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+      };
+      responses: {
+        200: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            /** @example {
+             *       "code": 200,
+             *       "message": "预约成功",
+             *       "data": {
+             *         "room": "111",
+             *         "seat": "111",
+             *         "date": "2025-07-21",
+             *         "type": "day",
+             *         "reservation_id": 123
+             *       }
+             *     } */
+            'application/json': {
+              code: number;
+              message: string;
+              data: {
+                room: string;
+                seat: string;
+                date: string;
+                type: string;
+                reservation_id: number;
+              };
+            };
+          };
+        };
+      };
     };
-    "/api/v1/reservation/seats": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** 获取座位数据 */
-        get: {
-            parameters: {
-                query?: {
-                    /** @example 2025-05-08 */
-                    date?: string;
-                    /** @example 101 */
-                    room?: string;
-                };
-                header: {
-                    /** @example Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdHVkZW50X2lkIjoiMjAyNDIxNDc0NCJ9.SOWMEgrlpWL64WEXqfK-LgJplBMLjJnYLXXJxJyae5Y */
-                    Authorization: string;
-                };
-                path?: never;
-                cookie?: never;
-            };
-            requestBody?: never;
-            responses: {
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        /** @example {
-                         *       "code": 200,
-                         *       "message": "获取座位数据成功",
-                         *       "data": {
-                         *         "room": "101",
-                         *         "date": "2025-05-08",
-                         *         "seats": [
-                         *           {
-                         *             "seat_id": 1,
-                         *             "status": "free"
-                         *           },
-                         *           {
-                         *             "seat_id": 2,
-                         *             "status": "reserved"
-                         *           }
-                         *         ]
-                         *       }
-                         *     } */
-                        "application/json": {
-                            code: number;
-                            message: string;
-                            data: {
-                                room: string;
-                                date: string;
-                                seats: {
-                                    seat_id: number;
-                                    status: string;
-                                }[];
-                            };
-                        };
-                    };
-                };
-            };
-        };
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/v1/reservation/cancel/{id}': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/api/v1/reservation/rooms": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
+    get?: never;
+    put?: never;
+    post?: never;
+    /** 取消预约 */
+    delete: {
+      parameters: {
+        query?: never;
+        header: {
+          /** @example Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdHVkZW50X2lkIjoiMjAyNDIxNDc0NCJ9.SOWMEgrlpWL64WEXqfK-LgJplBMLjJnYLXXJxJyae5Y */
+          Authorization: string;
         };
-        /** 获取可预约房间 */
-        get: {
-            parameters: {
-                query?: never;
-                header: {
-                    /** @example Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdHVkZW50X2lkIjoiMjAyNDIxNDc0NCJ9.SOWMEgrlpWL64WEXqfK-LgJplBMLjJnYLXXJxJyae5Y */
-                    Authorization: string;
-                };
-                path?: never;
-                cookie?: never;
-            };
-            requestBody?: never;
-            responses: {
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        /** @example {
-                         *       "code": 200,
-                         *       "message": "获取房间成功",
-                         *       "data": {
-                         *         "rooms": [
-                         *           "n101",
-                         *           "n102",
-                         *           "n103"
-                         *         ]
-                         *       }
-                         *     } */
-                        "application/json": {
-                            code: number;
-                            message: string;
-                            data: {
-                                rooms: string[];
-                            };
-                        };
-                    };
-                };
-            };
+        path: {
+          id: string;
         };
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+        cookie?: never;
+      };
+      requestBody?: never;
+      responses: {
+        200: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': Record<string, never>;
+          };
+        };
+      };
     };
-    "/api/v1/mine/reservations": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** 获取我的预约 */
-        get: {
-            parameters: {
-                query?: never;
-                header: {
-                    /** @example Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdHVkZW50X2lkIjoiMjAyNDIxNDc0NCJ9.SOWMEgrlpWL64WEXqfK-LgJplBMLjJnYLXXJxJyae5Y */
-                    Authorization: string;
-                };
-                path?: never;
-                cookie?: never;
-            };
-            requestBody?: never;
-            responses: {
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        /** @example {
-                         *       "code": 200,
-                         *       "message": "获取成功",
-                         *       "data": {
-                         *         "id": 123,
-                         *         "type": "day",
-                         *         "date": "2025-05-09",
-                         *         "room": "101",
-                         *         "seat_id": 1,
-                         *         "status": "进行中"
-                         *       }
-                         *     } */
-                        "application/json": {
-                            code: number;
-                            message: string;
-                            data: {
-                                id: number;
-                                type: string;
-                                date: string;
-                                room: string;
-                                seat_id: number;
-                                status: string;
-                            };
-                        };
-                    };
-                };
-            };
-        };
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/v1/reservation/days': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/api/v1/mine/score": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
+    /** 获取可预约日期 */
+    get: {
+      parameters: {
+        query?: {
+          /** @example day/week */
+          type?: string;
         };
-        /** 获取信誉分 */
-        get: {
-            parameters: {
-                query?: never;
-                header: {
-                    /** @example Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdHVkZW50X2lkIjoiMjAyNDIxNDc0NCJ9.SOWMEgrlpWL64WEXqfK-LgJplBMLjJnYLXXJxJyae5Y */
-                    Authorization: string;
-                };
-                path?: never;
-                cookie?: never;
-            };
-            requestBody?: never;
-            responses: {
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        /** @example {
-                         *       "code": 200,
-                         *       "message": "success",
-                         *       "data": {
-                         *         "score": 300
-                         *       }
-                         *     } */
-                        "application/json": {
-                            code: number;
-                            message: string;
-                            data: {
-                                score: number;
-                            };
-                        };
-                    };
-                };
-            };
+        header: {
+          /** @example Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdHVkZW50X2lkIjoiMjAyNDIxNDc0NCJ9.SOWMEgrlpWL64WEXqfK-LgJplBMLjJnYLXXJxJyae5Y */
+          Authorization: string;
         };
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+        path?: never;
+        cookie?: never;
+      };
+      requestBody?: never;
+      responses: {
+        200: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            /** @example {
+             *       "code": 200,
+             *       "message": "获取日期成功",
+             *       "data": {
+             *         "dates": [
+             *           {
+             *             "type": "day",
+             *             "date": "2025-05-08"
+             *           },
+             *           {
+             *             "type": "day",
+             *             "date": "2025-05-09"
+             *           },
+             *           {
+             *             "type": "week",
+             *             "date": "2025-05-12"
+             *           }
+             *         ]
+             *       }
+             *     } */
+            'application/json': {
+              code: number;
+              message: string;
+              data: {
+                dates: {
+                  type: string;
+                  date: string;
+                }[];
+              };
+            };
+          };
+        };
+      };
     };
-    "/api/v1/feedback": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** 获取所有反馈 */
-        get: {
-            parameters: {
-                query?: never;
-                header?: {
-                    /** @example Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdHVkZW50X2lkIjoiMjAyNDIxNDc0NCJ9.SOWMEgrlpWL64WEXqfK-LgJplBMLjJnYLXXJxJyae5Ys */
-                    Authorization?: string;
-                };
-                path?: never;
-                cookie?: never;
-            };
-            requestBody?: never;
-            responses: {
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": Record<string, never>;
-                    };
-                };
-            };
-        };
-        put?: never;
-        /** 意见反馈 */
-        post: {
-            parameters: {
-                query?: never;
-                header?: {
-                    /** @example Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdHVkZW50X2lkIjoiMjAyNDIxNDc0NCJ9.SOWMEgrlpWL64WEXqfK-LgJplBMLjJnYLXXJxJyae5Y */
-                    Authorization?: string;
-                };
-                path?: never;
-                cookie?: never;
-            };
-            requestBody?: {
-                content: {
-                    /** @example {
-                     *       "content": "建议提前预约时间"
-                     *     } */
-                    "application/json": {
-                        content: string;
-                    };
-                };
-            };
-            responses: {
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        /** @example {
-                         *       "code": 200,
-                         *       "message": "提交反馈成功",
-                         *       "data": {}
-                         *     } */
-                        "application/json": {
-                            code: number;
-                            message: string;
-                            data: Record<string, never>;
-                        };
-                    };
-                };
-            };
-        };
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/v1/reservation/seats': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/api/v1/checkin": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
+    /** 获取座位数据 */
+    get: {
+      parameters: {
+        query?: {
+          /** @example 2025-05-08 */
+          date?: string;
+          /** @example 101 */
+          room?: string;
         };
-        /** 扫码签到 */
-        get: {
-            parameters: {
-                query?: {
-                    /** @example  */
-                    seat_id?: string;
-                };
-                header?: {
-                    /** @example Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxMjMsInJvbGUiOiJzdHVkZW50IiwiZXhwIjoxNzE3ODUyODAwfQ.WkJljPrpS7j2UJAKrVE-ocM3wS1q7VMCtXXnORRCDzA */
-                    Authorization?: string;
-                };
-                path?: never;
-                cookie?: never;
-            };
-            requestBody?: never;
-            responses: {
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        /** @example {
-                         *       "code": 200,
-                         *       "message": "success",
-                         *       "data": {}
-                         *     } */
-                        "application/json": {
-                            code: number;
-                            message: string;
-                            data: Record<string, never>;
-                        };
-                    };
-                };
-            };
+        header: {
+          /** @example Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdHVkZW50X2lkIjoiMjAyNDIxNDc0NCJ9.SOWMEgrlpWL64WEXqfK-LgJplBMLjJnYLXXJxJyae5Y */
+          Authorization: string;
         };
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+        path?: never;
+        cookie?: never;
+      };
+      requestBody?: never;
+      responses: {
+        200: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            /** @example {
+             *       "code": 200,
+             *       "message": "获取座位数据成功",
+             *       "data": {
+             *         "room": "101",
+             *         "date": "2025-05-08",
+             *         "seats": [
+             *           {
+             *             "seat_id": 1,
+             *             "status": "free"
+             *           },
+             *           {
+             *             "seat_id": 2,
+             *             "status": "reserved"
+             *           }
+             *         ]
+             *       }
+             *     } */
+            'application/json': {
+              code: number;
+              message: string;
+              data: {
+                room: string;
+                date: string;
+                seats: {
+                  seat_id: number;
+                  status: string;
+                }[];
+              };
+            };
+          };
+        };
+      };
     };
-    "/api/v1/upload": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /**
-         * 上传教室及其座位配置及有效时间
-         * @description 上传教室的数据及其所有的座位的数据
-         *     并且这些座位的有效时长
-         */
-        post: {
-            parameters: {
-                query?: never;
-                header: {
-                    /** @example Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxMjMsInJvbGUiOiJzdHVkZW50IiwiZXhwIjoxNzE3ODUyODAwfQ.WkJljPrpS7j2UJAKrVE-ocM3wS1q7VMCtXXnORRCDzA */
-                    Authorization: string;
-                };
-                path?: never;
-                cookie?: never;
-            };
-            requestBody?: {
-                content: {
-                    /** @example {
-                     *       "rooms": [
-                     *         {
-                     *           "room": "A101",
-                     *           "seatid": [
-                     *             "S1",
-                     *             "S2",
-                     *             "S3"
-                     *           ]
-                     *         },
-                     *         {
-                     *           "room": "B202",
-                     *           "seatid": [
-                     *             "S4",
-                     *             "S5"
-                     *           ]
-                     *         }
-                     *       ],
-                     *       "start_time": "2025-06-01",
-                     *       "end_time": "2025-06-05"
-                     *     } */
-                    "application/json": {
-                        rooms: {
-                            room: string;
-                            seatid: string[];
-                        }[];
-                        start_time: string;
-                        end_time: string;
-                    };
-                };
-            };
-            responses: {
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            rooms: {
-                                room: string;
-                                seatid: string[];
-                            }[];
-                            start_time: string;
-                            end_time: string;
-                        };
-                    };
-                };
-            };
-        };
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/v1/reservation/rooms': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
+    /** 获取可预约房间 */
+    get: {
+      parameters: {
+        query?: never;
+        header: {
+          /** @example Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdHVkZW50X2lkIjoiMjAyNDIxNDc0NCJ9.SOWMEgrlpWL64WEXqfK-LgJplBMLjJnYLXXJxJyae5Y */
+          Authorization: string;
+        };
+        path?: never;
+        cookie?: never;
+      };
+      requestBody?: never;
+      responses: {
+        200: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            /** @example {
+             *       "code": 200,
+             *       "message": "获取房间成功",
+             *       "data": {
+             *         "rooms": [
+             *           "n101",
+             *           "n102",
+             *           "n103"
+             *         ]
+             *       }
+             *     } */
+            'application/json': {
+              code: number;
+              message: string;
+              data: {
+                rooms: string[];
+              };
+            };
+          };
+        };
+      };
+    };
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/v1/mine/reservations': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** 获取我的预约 */
+    get: {
+      parameters: {
+        query?: never;
+        header: {
+          /** @example Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdHVkZW50X2lkIjoiMjAyNDIxNDc0NCJ9.SOWMEgrlpWL64WEXqfK-LgJplBMLjJnYLXXJxJyae5Y */
+          Authorization: string;
+        };
+        path?: never;
+        cookie?: never;
+      };
+      requestBody?: never;
+      responses: {
+        200: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            /** @example {
+             *       "code": 200,
+             *       "message": "获取成功",
+             *       "data": {
+             *         "id": 123,
+             *         "type": "day",
+             *         "date": "2025-05-09",
+             *         "room": "101",
+             *         "seat_id": 1,
+             *         "status": "进行中"
+             *       }
+             *     } */
+            'application/json': {
+              code: number;
+              message: string;
+              data: {
+                id: number;
+                type: string;
+                date: string;
+                room: string;
+                seat_id: number;
+                status: string;
+              };
+            };
+          };
+        };
+      };
+    };
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/v1/mine/score': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** 获取信誉分 */
+    get: {
+      parameters: {
+        query?: never;
+        header: {
+          /** @example Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdHVkZW50X2lkIjoiMjAyNDIxNDc0NCJ9.SOWMEgrlpWL64WEXqfK-LgJplBMLjJnYLXXJxJyae5Y */
+          Authorization: string;
+        };
+        path?: never;
+        cookie?: never;
+      };
+      requestBody?: never;
+      responses: {
+        200: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            /** @example {
+             *       "code": 200,
+             *       "message": "success",
+             *       "data": {
+             *         "score": 300
+             *       }
+             *     } */
+            'application/json': {
+              code: number;
+              message: string;
+              data: {
+                score: number;
+              };
+            };
+          };
+        };
+      };
+    };
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/v1/feedback': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** 获取所有反馈 */
+    get: {
+      parameters: {
+        query?: never;
+        header?: {
+          /** @example Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdHVkZW50X2lkIjoiMjAyNDIxNDc0NCJ9.SOWMEgrlpWL64WEXqfK-LgJplBMLjJnYLXXJxJyae5Ys */
+          Authorization?: string;
+        };
+        path?: never;
+        cookie?: never;
+      };
+      requestBody?: never;
+      responses: {
+        200: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': Record<string, never>;
+          };
+        };
+      };
+    };
+    put?: never;
+    /** 意见反馈 */
+    post: {
+      parameters: {
+        query?: never;
+        header?: {
+          /** @example Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdHVkZW50X2lkIjoiMjAyNDIxNDc0NCJ9.SOWMEgrlpWL64WEXqfK-LgJplBMLjJnYLXXJxJyae5Y */
+          Authorization?: string;
+        };
+        path?: never;
+        cookie?: never;
+      };
+      requestBody?: {
+        content: {
+          /** @example {
+           *       "content": "建议提前预约时间"
+           *     } */
+          'application/json': {
+            content: string;
+          };
+        };
+      };
+      responses: {
+        200: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            /** @example {
+             *       "code": 200,
+             *       "message": "提交反馈成功",
+             *       "data": {}
+             *     } */
+            'application/json': {
+              code: number;
+              message: string;
+              data: Record<string, never>;
+            };
+          };
+        };
+      };
+    };
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/v1/checkin': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** 扫码签到 */
+    get: {
+      parameters: {
+        query?: {
+          /** @example  */
+          seat_id?: string;
+        };
+        header?: {
+          /** @example Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxMjMsInJvbGUiOiJzdHVkZW50IiwiZXhwIjoxNzE3ODUyODAwfQ.WkJljPrpS7j2UJAKrVE-ocM3wS1q7VMCtXXnORRCDzA */
+          Authorization?: string;
+        };
+        path?: never;
+        cookie?: never;
+      };
+      requestBody?: never;
+      responses: {
+        200: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            /** @example {
+             *       "code": 200,
+             *       "message": "success",
+             *       "data": {}
+             *     } */
+            'application/json': {
+              code: number;
+              message: string;
+              data: Record<string, never>;
+            };
+          };
+        };
+      };
+    };
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/v1/upload': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /**
+     * 上传教室及其座位配置及有效时间
+     * @description 上传教室的数据及其所有的座位的数据
+     *     并且这些座位的有效时长
+     */
+    post: {
+      parameters: {
+        query?: never;
+        header: {
+          /** @example Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxMjMsInJvbGUiOiJzdHVkZW50IiwiZXhwIjoxNzE3ODUyODAwfQ.WkJljPrpS7j2UJAKrVE-ocM3wS1q7VMCtXXnORRCDzA */
+          Authorization: string;
+        };
+        path?: never;
+        cookie?: never;
+      };
+      requestBody?: {
+        content: {
+          /** @example {
+           *       "rooms": [
+           *         {
+           *           "room": "A101",
+           *           "seatid": [
+           *             "S1",
+           *             "S2",
+           *             "S3"
+           *           ]
+           *         },
+           *         {
+           *           "room": "B202",
+           *           "seatid": [
+           *             "S4",
+           *             "S5"
+           *           ]
+           *         }
+           *       ],
+           *       "start_time": "2025-06-01",
+           *       "end_time": "2025-06-05"
+           *     } */
+          'application/json': {
+            rooms: {
+              room: string;
+              seatid: string[];
+            }[];
+            start_time: string;
+            end_time: string;
+          };
+        };
+      };
+      responses: {
+        200: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': {
+              rooms: {
+                room: string;
+                seatid: string[];
+              }[];
+              start_time: string;
+              end_time: string;
+            };
+          };
+        };
+      };
+    };
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
 }
 export type webhooks = Record<string, never>;
 export interface components {
-    schemas: never;
-    responses: never;
-    parameters: never;
-    requestBodies: never;
-    headers: never;
-    pathItems: never;
+  schemas: never;
+  responses: never;
+  parameters: never;
+  requestBodies: never;
+  headers: never;
+  pathItems: never;
 }
 export type $defs = Record<string, never>;
 export type operations = Record<string, never>;

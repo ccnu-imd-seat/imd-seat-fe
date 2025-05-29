@@ -23,11 +23,15 @@
   pointer-events: none;
 }
 
-// // 保证内容在背景图片之上
-// .login-page > *:not(.login-bg) {
-//   position: relative;
-//   z-index: 1;
-// }
+// 保证内容在背景图片之上
+.login-page {
+  > .login-header,
+  > .login-form-card,
+  > .login-footer {
+    position: relative;
+    z-index: 1;
+  }
+}
 
 .login-header {
   margin-bottom: 85px;
@@ -42,6 +46,7 @@
   font-family: AlibabaPuHuiTi-Regular, 'Consolas', 'Menlo', 'Monaco', monospace;
   color: #ffffff;
   letter-spacing: 5px;
+  margin-bottom: 5px;
 }
 
 .login-greet {
@@ -63,7 +68,7 @@
 
 .login-form-card {
   position: relative; // 保证伪元素定位生效
-  width: 96%;
+  width: 67%;
   height: 663px;
   background: linear-gradient(
     180deg,

@@ -110,23 +110,10 @@ const AppointPage: React.FC = () => {
               </View>
             </View>
             {/* 教室卡片列表 */}
-            <View
-              style={{
-                width: '100%',
-                display: 'flex',
-                flexWrap: 'wrap',
-                justifyContent: 'center',
-                marginTop: 32,
-                gap: '16px 0',
-              }}
-            >
+            <View className="appoint-classroom-area">
               {classroomList.map(cls => (
                 <View
                   key={cls.roomNo}
-                  style={{
-                    margin: '0 5px',
-                    marginBottom: '16px',
-                  }}
                   onClick={() => setSelectedClassroom(cls.roomNo)}
                 >
                   <ClassroomCard roomNo={cls.roomNo} />

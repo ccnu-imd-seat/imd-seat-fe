@@ -198,7 +198,7 @@
       text-align: left;
       font-style: normal;
       text-transform: none;
-			white-space: nowrap;
+      white-space: nowrap;
     }
 
     .appoint-room-value {
@@ -211,16 +211,15 @@
       text-align: left;
       font-style: normal;
       text-transform: none;
-      margin-right: 35%;
     }
 
     .appoint-rule-btn {
-      width: 95px;
+      width: 75px;
       height: 27px;
       display: flex;
       align-items: center;
       background: #ffd0b7;
-      border: 2px solid #AFE3FF;
+      border: 2px solid #afe3ff;
       border-radius: 12px;
       padding: 2px 12px;
       font-family: AlibabaPuHuiTi, AlibabaPuHuiTi;
@@ -232,7 +231,7 @@
       text-align: left;
       font-style: normal;
       text-transform: none;
-      margin-left: 10px;
+      margin-left: auto;
       gap: 4px;
 
       .appoint-rule-icon {
@@ -289,7 +288,19 @@
       text-align: center;
       font-style: normal;
       text-transform: none;
+      margin-left: 8%;
     }
+  }
+
+  // 教室区
+  .appoint-classroom-area {
+    width: 95%;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    justify-items: center;
+    gap: 15px 5px;
+    margin-top: 15px;
   }
 
   // 座位区
@@ -299,8 +310,8 @@
     margin: 0 auto;
     display: grid;
     grid-template-columns: repeat(5, 1fr);
-    gap: 18px 10px;
     justify-items: center;
+    gap: 10px 10px;
     margin-top: 8px;
   }
 }

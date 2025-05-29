@@ -32,18 +32,18 @@ export default function Index() {
   ];
   // 示例违约数据
   const violationList = [
-    {
-      condition: false,
-      date: '2025年5.10',
-      location: '南湖综合楼 513-12',
-      status: '违约',
-    },
-    {
-      condition: false,
-      date: '2025年5.11',
-      location: '南湖综合楼 513-13',
-      status: '违约',
-    },
+    // {
+    //   condition: false,
+    //   date: '2025年5.10',
+    //   location: '南湖综合楼 513-12',
+    //   status: '违约',
+    // },
+    // {
+    //   condition: false,
+    //   date: '2025年5.11',
+    //   location: '南湖综合楼 513-13',
+    //   status: '违约',
+    // },
   ];
 
   return (
@@ -53,7 +53,7 @@ export default function Index() {
         <Image className="home-bg" src={homeBg} mode="aspectFill" />
 
         {/* 顶部操作栏 */}
-        <View className="home-header">
+        <View>
           {/* 建议反馈按钮 */}
           <View
             className="home-suggest-box"
@@ -105,7 +105,11 @@ export default function Index() {
         <View className="record-list">
           {(current === 0 ? reserveList : violationList).length === 0 ? (
             <View className="record-list__empty">
-              {current === 0 ? '暂无预约数据' : '暂无违约数据'}
+              {current === 0 ? (
+                <Text>您还没有预约哦~</Text>
+              ) : (
+                <Text>您还没有违约哦~</Text>
+              )}
             </View>
           ) : (
             (current === 0 ? reserveList : violationList).map((item, idx) => (

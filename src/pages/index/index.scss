@@ -23,13 +23,6 @@
     pointer-events: none;
   }
 
-  // 顶部栏
-  .home-header {
-    position: relative;
-    width: 100%;
-    height: 60px;
-  }
-
   // 意见反馈按钮区域
   .home-suggest-box {
     position: absolute;
@@ -73,7 +66,7 @@
 
   // 用户卡片
   .home-user-card {
-    width: 92%;
+    width: 50%;
     max-width: 420px;
     border-radius: 22px;
     padding: 0px 18px 18px 18px;
@@ -82,13 +75,13 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin-top: -30px;
+    margin-top: 30px;
 
     .home-user-avatar {
       width: 64px;
       height: 64px;
       border-radius: 50%;
-      background: #fff;
+      background: #a9e1ff;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -97,8 +90,8 @@
       overflow: hidden;
 
       image {
-        width: 48px;
-        height: 48px;
+        width: 64px;
+        height: 64px;
       }
     }
 
@@ -176,12 +169,31 @@
   // 记录列表区域
   .record-list {
     position: relative;
-    width: 92%;
+    width: 85%;
     max-width: 420px;
     min-height: 600px;
     background: #ffffff;
     border-radius: 25px;
-    padding: 18px;
+    padding: 25px 20px;
     margin: 18px auto 0 auto;
+  }
+
+  //无预约/违约记录
+  .record-list__empty {
+    font-family: AlibabaPuHuiTi, AlibabaPuHuiTi;
+    font-weight: 400;
+    font-size: 36px;
+    color: #a6a6a6;
+    line-height: 49px;
+    letter-spacing: 3px;
+    text-align: left;
+    font-style: normal;
+    text-transform: none;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    text-align: center;
+    padding-top: 65px;
   }
 }
