@@ -1,6 +1,6 @@
 import { View, Text } from '@tarojs/components';
 import Taro from '@tarojs/taro';
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
 const ScanPage = () => {
   const [result, setResult] = useState<string>('');

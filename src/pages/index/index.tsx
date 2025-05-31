@@ -1,5 +1,5 @@
 import { View, Text, Image, Button } from '@tarojs/components';
-import React from 'react';
+import React, { useEffect } from 'react';
 import Taro from '@tarojs/taro';
 import avatar from '../../assets/icons/home-avatar.png';
 import scan from '../../assets/icons/home-scan.png';
@@ -7,6 +7,7 @@ import suggest from '../../assets/icons/home-suggest.png';
 import homeBg from '../../assets/bg/home.png';
 import RecordCard from '../../components/recordCard';
 import SuggestDialog from '../../components/suggestDialog';
+import { getMyReservations } from '../../apis/mine';
 import './index.scss';
 
 export default function Index() {
@@ -14,6 +15,28 @@ export default function Index() {
   const [current, setCurrent] = React.useState(0);
   // 建议反馈弹窗开关
   const [suggestOpen, setSuggestOpen] = React.useState(false);
+  // 获取用户信息
+  const userInfo = Taro.getStorageSync('userInfo');
+
+  // const getReservations = async () => {
+  //     try {
+  //       const res = await getMyReservations();
+  //       const { name, student_id } = res;
+  //       // 将用户信息存储到本地
+  //       Taro.setStorageSync('userInfo', { name, student_id });
+  //       Taro.showToast({ title: '登录成功', icon: 'success' });
+  //       // 跳转首页或其他页面
+  //       Taro.switchTab({ url: '/pages/index/index' });
+  //     } catch (e: any) {
+  //       Taro.showToast({ title: e?.message || '登录失败', icon: 'none' });
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   };
+
+  // useEffect(() => {
+
+  // },[]);
 
   // 示例预约数据
   const reserveList = [
@@ -78,8 +101,8 @@ export default function Index() {
             <Image src={avatar} />
           </View>
           <View className="home-user-info">
-            <View className="home-user-name">姓名：dyf</View>
-            <View className="home-user-id">学号：202421xxxx</View>
+            <View className="home-user-name">姓名：{userInfo.name}</View>
+            <View className="home-user-id">学号：{userInfo.student_id}</View>
           </View>
         </View>
 
