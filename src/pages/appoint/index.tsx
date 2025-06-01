@@ -1,42 +1,84 @@
 import { View, Text, Image } from '@tarojs/components';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Horn from '../../assets/icons/horn.png';
 import SelectDialog from '../../components/selectDialog';
 import RuleDialog from '../../components/ruleDialog';
 import returnIcon from '../../assets/icons/return.png';
 import Chair from '../../components/chair';
 import ClassroomCard from '../../components/classroom';
+import { getReservationDays, getRooms, getSeats } from '../../apis/reservation';
 import './index.scss';
-
-// 日期和座位模拟数据
-const days = [13, 14, 15, 16, 17, 18, 19, 20];
-const seats = Array.from({ length: 30 }, (_, i) => i + 1);
 
 const AppointPage: React.FC = () => {
   // 预约相关状态
-  const [selectedDay, setSelectedDay] = useState(14);
+  const [selectedDay, setSelectedDay] = useState<number | null>(null);
   const [selectDialogOpen, setSelectDialogOpen] = useState(false);
   const [ruleDialogOpen, setRuleDialogOpen] = useState(false);
   const [currentTime, setCurrentTime] = useState<'week' | 'day'>('week');
-  const [selectedClassroom, setSelectedClassroom] = useState<
-    string | number | null
-  >(null);
+  const [selectedClassroom, setSelectedClassroom] = useState<string | null>(null);
   const [selectedSeat, setSelectedSeat] = useState<number | null>(null);
 
-  // 模拟教室列表
-  const classroomList = [
-    { roomNo: '513' },
-    { roomNo: '514' },
-    { roomNo: '515' },
-    { roomNo: '516' },
-    { roomNo: '517' },
-  ];
+  // 后端数据状态
+  const [days, setDays] = useState<number[]>([]);
+  const [weekRange, setWeekRange] = useState<string>(''); // 周模式下的日期范围
+  const [classroomList, setClassroomList] = useState<{ roomNo: string }[]>([]);
+  const [seatStatus, setSeatStatus] = useState<{ num: number; status: 'free' | 'busy' }[]>([]);
 
-  // 模拟座位数据
-  const seatStatus = seats.map(num => ({
-    num,
-    status: [2, 3, 4, 5].includes(num) ? 'busy' : 'free',
-  }));
+  // 获取日期
+  useEffect(() => {
+    getReservationDays({ type: currentTime })
+      .then(res => {
+        const dateArr = res.dates || [];
+        console.log('获取到的日期数据:', dateArr);
+        if (currentTime === 'day') {
+          setDays(dateArr.map(d => Number(d.date.split('-')[2])));
+          setSelectedDay(dateArr.length > 0 ? Number(dateArr[0].date.split('-')[2]) : null);
+        } else if (currentTime === 'week' && dateArr.length > 0) {
+          // week 模式只返回一条，date为周一
+          const monday = dateArr[0].date;
+          // 计算周日
+          const mondayDate = new Date(monday);
+          const sundayDate = new Date(mondayDate);
+          sundayDate.setDate(mondayDate.getDate() + 6);
+          setWeekRange(`${monday} —— ${sundayDate.getFullYear()}-${(sundayDate.getMonth() + 1).toString().padStart(2, '0')}-${sundayDate.getDate().toString().padStart(2, '0')}`);
+        }
+      });
+  }, [currentTime]);
+
+  // 获取教室
+  useEffect(() => {
+    getRooms().then(res => {
+      console.log('获取到的教室数据:', res);
+      setClassroomList((res.rooms || []).map((room: string) => ({ roomNo: room })));
+    });
+  }, []);
+
+  // 获取座位
+  useEffect(() => {
+    if (!selectedClassroom) {
+      setSeatStatus([]);
+      return;
+    }
+    let dateStr = '';
+    if (currentTime === 'day' && selectedDay) {
+      const today = new Date();
+      dateStr = `${today.getFullYear()}-${(today.getMonth() + 1).toString().padStart(2, '0')}-${selectedDay.toString().padStart(2, '0')}`;
+    } else if (currentTime === 'week' && weekRange) {
+      // 取周一
+      dateStr = weekRange.split(' —— ')[0];
+    }
+    if (dateStr && selectedClassroom) {
+      getSeats({ date: dateStr, room: selectedClassroom }).then(res => {
+        console.log('获取到的座位数据:', res);
+        setSeatStatus(
+          (res.seats || []).map((seat: any) => ({
+            num: seat.seat_id,
+            status: seat.status === 'free' ? 'free' : 'busy',
+          }))
+        );
+      });
+    }
+  }, [selectedClassroom, selectedDay, currentTime, weekRange]);
 
   return (
     <>
@@ -72,7 +114,7 @@ const AppointPage: React.FC = () => {
             className="appoint-date-row"
             style={{ justifyContent: 'center' }}
           >
-            <Text className="appoint-date-week">2025-04-20 —— 2025-04-26</Text>
+            <Text className="appoint-date-week">{weekRange}</Text>
           </View>
         ) : (
           <View className="appoint-date-row">
@@ -146,7 +188,9 @@ const AppointPage: React.FC = () => {
             </View>
             {/* 日期标题 */}
             <View className="appoint-date-title-row">
-              <Text className="appoint-date-title">5.14</Text>
+              <Text className="appoint-date-title">
+                {currentTime === 'day' && selectedDay ? `5.${selectedDay}` : weekRange}
+              </Text>
             </View>
             {/* 座位区 */}
             <View className="appoint-seat-area">
@@ -154,7 +198,7 @@ const AppointPage: React.FC = () => {
                 <Chair
                   key={seat.num}
                   num={seat.num}
-                  status={seat.status as 'free' | 'busy'}
+                  status={seat.status}
                   onClick={() => {
                     if (seat.status === 'free') {
                       setSelectedSeat(seat.num);
@@ -182,8 +226,10 @@ const AppointPage: React.FC = () => {
         seatNo={selectedSeat || ''}
         date={
           currentTime === 'week'
-            ? '2025-04-20 —— 2025-04-26'
-            : `2025.5.${selectedDay}`
+            ? weekRange
+            : selectedDay
+            ? `2025.5.${selectedDay}`
+            : ''
         }
       />
       {/* 预约机制弹窗 */}

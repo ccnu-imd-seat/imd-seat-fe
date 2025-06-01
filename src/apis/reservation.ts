@@ -25,7 +25,7 @@ export function cancelReservation(
 // 获取可预约日期
 export function getReservationDays(
   params?: paths['/api/v1/reservation/days']['get']['parameters']['query']
-): Promise<paths['/api/v1/reservation/days']['get']['responses']['200']['content']['application/json']> {
+): Promise<paths['/api/v1/reservation/days']['get']['responses']['200']['content']['application/json']['data']> {
   return request({
     method: 'GET',
     url: '/api/v1/reservation/days',
@@ -36,7 +36,7 @@ export function getReservationDays(
 // 获取座位数据
 export function getSeats(
   params?: paths['/api/v1/reservation/seats']['get']['parameters']['query']
-): Promise<paths['/api/v1/reservation/seats']['get']['responses']['200']['content']['application/json']> {
+): Promise<paths['/api/v1/reservation/seats']['get']['responses']['200']['content']['application/json']['data']> {
   return request({
     method: 'GET',
     url: '/api/v1/reservation/seats',
@@ -45,7 +45,7 @@ export function getSeats(
 }
 
 // 获取可预约房间
-export function getRooms(): Promise<paths['/api/v1/reservation/rooms']['get']['responses']['200']['content']['application/json']> {
+export function getRooms(): Promise<paths['/api/v1/reservation/rooms']['get']['responses']['200']['content']['application/json']['data']> {
   return request({
     method: 'GET',
     url: '/api/v1/reservation/rooms',

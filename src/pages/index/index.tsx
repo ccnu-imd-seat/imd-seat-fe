@@ -8,6 +8,7 @@ import homeBg from '../../assets/bg/home.png';
 import RecordCard from '../../components/recordCard';
 import SuggestDialog from '../../components/suggestDialog';
 import { getMyReservations } from '../../apis/mine';
+import { postFeedback } from '../../apis/feedback';
 import './index.scss';
 
 export default function Index() {
@@ -17,57 +18,30 @@ export default function Index() {
   const [suggestOpen, setSuggestOpen] = React.useState(false);
   // 获取用户信息
   const userInfo = Taro.getStorageSync('userInfo');
+  // 预约列表状态
+  const [reserveList, setReserveList] = React.useState<any[]>([]);
+  // 违约列表状态（如有接口可后续实现）
+  const [violationList] = React.useState<any[]>([]);
 
-  // const getReservations = async () => {
-  //     try {
-  //       const res = await getMyReservations();
-  //       const { name, student_id } = res;
-  //       // 将用户信息存储到本地
-  //       Taro.setStorageSync('userInfo', { name, student_id });
-  //       Taro.showToast({ title: '登录成功', icon: 'success' });
-  //       // 跳转首页或其他页面
-  //       Taro.switchTab({ url: '/pages/index/index' });
-  //     } catch (e: any) {
-  //       Taro.showToast({ title: e?.message || '登录失败', icon: 'none' });
-  //     } finally {
-  //       setLoading(false);
-  //     }
-  //   };
-
-  // useEffect(() => {
-
-  // },[]);
-
-  // 示例预约数据
-  const reserveList = [
-    {
-      condition: true,
-      date: '2025年5.15',
-      location: '南湖综合楼 513-12',
-      status: '已预约',
-    },
-    {
-      condition: true,
-      date: '2025年5.16',
-      location: '南湖综合楼 513-13',
-      status: '已预约',
-    },
-  ];
-  // 示例违约数据
-  const violationList = [
-    // {
-    //   condition: false,
-    //   date: '2025年5.10',
-    //   location: '南湖综合楼 513-12',
-    //   status: '违约',
-    // },
-    // {
-    //   condition: false,
-    //   date: '2025年5.11',
-    //   location: '南湖综合楼 513-13',
-    //   status: '违约',
-    // },
-  ];
+  useEffect(() => {
+    // 获取预约数据
+    getMyReservations()
+      .then((res) => {
+        if (Array.isArray(res)) {
+          console.log('获取到的预约数据:', res);
+          setReserveList(res);
+        } else if (res && typeof res === 'object') {
+          setReserveList([res]);
+          console.log('获取到的预约数据:', res);
+        } else {
+          console.log('获取到的预约数据:', res);
+          setReserveList([]);
+        }
+      })
+      .catch(() => {
+        setReserveList([]);
+      });
+  }, []);
 
   return (
     <>
@@ -137,10 +111,10 @@ export default function Index() {
           ) : (
             (current === 0 ? reserveList : violationList).map((item, idx) => (
               <RecordCard
-                key={idx}
-                condition={item.condition}
+                key={item.id || idx}
+                condition={item.status === '进行中' || item.status === '已预约'}
                 date={item.date}
-                location={item.location}
+                location={item.room ? `${item.room}${item.seat_id ? `-${item.seat_id}` : ''}` : ''}
                 status={item.status}
               />
             ))
@@ -151,8 +125,18 @@ export default function Index() {
       <SuggestDialog
         open={suggestOpen}
         onClose={() => setSuggestOpen(false)}
-        onSubmit={() => {
-          setSuggestOpen(false);
+        onSubmit={async (content: string) => {
+          if (!content) {
+            Taro.showToast({ title: '请输入反馈内容', icon: 'none' });
+            return;
+          }
+          try {
+            await postFeedback({ content });
+            Taro.showToast({ title: '反馈已提交', icon: 'success' });
+            setSuggestOpen(false);
+          } catch (e: any) {
+            Taro.showToast({ title: e?.message || '提交失败', icon: 'none' });
+          }
         }}
       />
     </>
