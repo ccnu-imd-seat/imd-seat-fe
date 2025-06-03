@@ -7,6 +7,8 @@ interface RecordCardProps {
   date: string;
   location: string;
   status: string;
+  id?: number | string;
+  onCancel?: (id: number | string) => void;
 }
 
 // 预约记录卡片
@@ -15,6 +17,8 @@ const RecordCard: React.FC<RecordCardProps> = ({
   date,
   location,
   status,
+  id,
+  onCancel,
 }) => {
   return (
     <>
@@ -24,7 +28,14 @@ const RecordCard: React.FC<RecordCardProps> = ({
           <View className="record-detail">
             <Text className="record-location">{location}</Text>
             <Text className="record-status">{status}</Text>
-            <Button className="record-btn">取消预约</Button>
+            <View style={{marginLeft:"auto"}}>
+              <Button
+                className="record-btn"
+                onClick={() => id && onCancel && onCancel(id)}
+              >
+                取消预约
+              </Button>
+            </View>
           </View>
         </View>
       ) : (
@@ -32,7 +43,6 @@ const RecordCard: React.FC<RecordCardProps> = ({
           <View className="record-date">{date}</View>
           <View className="record-detail">
             <Text className="record-location">{location}</Text>
-            <Text style={{ width: '30%' }}></Text>
             <Text className="record-tap">违约</Text>
           </View>
         </View>

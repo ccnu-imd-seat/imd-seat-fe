@@ -3,12 +3,16 @@ import type { paths } from '../types/openapi';
 
 // 预定座位
 export function reserve(
-  params: NonNullable<paths['/api/v1/reservation/reserve']['post']['requestBody']>['content']['application/json']
-): Promise<paths['/api/v1/reservation/reserve']['post']['responses']['200']['content']['application/json']> {
+  params: NonNullable<paths['/api/v1/reservation/reserve']['post']['requestBody']>['content']['application/json'],
+  options?: { headers?: { DEBUG_MODE?: string } }
+): Promise<paths['/api/v1/reservation/reserve']['post']['responses']['200']['content']['application/json']['data']> {
   return request({
     method: 'POST',
     url: '/api/v1/reservation/reserve',
     data: params,
+    header: {
+      ...(options && options.headers ? options.headers : {}),
+    },
   });
 }
 

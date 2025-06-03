@@ -6,21 +6,21 @@ import React from 'react';
 
 interface ChairProps {
   num: number;
-  status: 'free' | 'busy';
+  status: 'available' | 'booked';
   onClick?: () => void;
 }
 
 //椅子卡片
 const Chair: React.FC<ChairProps> = ({ num, status, onClick }) => {
-  const icon = status === 'busy' ? BusyChair : FreeChair;
+  const icon = status === 'booked' ? BusyChair : FreeChair;
   return (
     <View
-      className={`seat${status !== 'free' ? ' busy' : ''}`}
+      className={`seat${status !== 'available' ? ' reserved' : ''}`}
       onClick={() => {
-        if (status === 'free' && onClick) onClick();
+        if (status === 'available' && onClick) onClick();
       }}
       style={{
-        cursor: status === 'free' ? 'pointer' : 'not-allowed',
+        cursor: status === 'available' ? 'pointer' : 'not-allowed',
       }}
     >
       <Image className="seat-icon" src={icon} />

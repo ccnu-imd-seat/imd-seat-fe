@@ -106,7 +106,7 @@ export interface paths {
             /** @description 天预约模式即预约当天日期，周预约模式即预约当周周一 */
             date: string;
             seat_id: string;
-            roomid: string;
+            room: string;
           };
         };
       };

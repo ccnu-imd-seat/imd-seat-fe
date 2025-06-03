@@ -1,6 +1,6 @@
 import { View, Text, Image, Button } from '@tarojs/components';
 import React, { useEffect } from 'react';
-import Taro from '@tarojs/taro';
+import Taro, { useDidShow } from '@tarojs/taro';
 import avatar from '../../assets/icons/home-avatar.png';
 import scan from '../../assets/icons/home-scan.png';
 import suggest from '../../assets/icons/home-suggest.png';
@@ -9,6 +9,7 @@ import RecordCard from '../../components/recordCard';
 import SuggestDialog from '../../components/suggestDialog';
 import { getMyReservations } from '../../apis/mine';
 import { postFeedback } from '../../apis/feedback';
+import { cancelReservation } from '../../apis/reservation';
 import './index.scss';
 
 export default function Index() {
@@ -23,18 +24,16 @@ export default function Index() {
   // 违约列表状态（如有接口可后续实现）
   const [violationList] = React.useState<any[]>([]);
 
-  useEffect(() => {
-    // 获取预约数据
+  // 页面显示时获取预约数据
+  const fetchReservations = React.useCallback(() => {
     getMyReservations()
       .then((res) => {
+        console.log('预约数据:', res); // 打印预约的数据
         if (Array.isArray(res)) {
-          console.log('获取到的预约数据:', res);
           setReserveList(res);
         } else if (res && typeof res === 'object') {
           setReserveList([res]);
-          console.log('获取到的预约数据:', res);
         } else {
-          console.log('获取到的预约数据:', res);
           setReserveList([]);
         }
       })
@@ -42,6 +41,30 @@ export default function Index() {
         setReserveList([]);
       });
   }, []);
+
+  // 页面挂载时获取一次
+  useEffect(() => {
+    fetchReservations();
+  }, [fetchReservations]);
+
+  // 每次页面展示时都获取数据（小程序专用）
+  useDidShow(() => {
+    fetchReservations();
+  });
+
+  // 取消预约逻辑
+  const handleCancelReservation = async (id: number | string) => {
+    Taro.showLoading({ title: '取消中...' });
+    try {
+      await cancelReservation(String(id));
+      Taro.hideLoading();
+      Taro.showToast({ title: '取消成功', icon: 'success' });
+      fetchReservations(); // 重新获取预约数据
+    } catch (e: any) {
+      Taro.hideLoading();
+      Taro.showToast({ title: e?.message || '取消失败', icon: 'none' });
+    }
+  };
 
   return (
     <>
@@ -112,10 +135,12 @@ export default function Index() {
             (current === 0 ? reserveList : violationList).map((item, idx) => (
               <RecordCard
                 key={item.id || idx}
-                condition={item.status === '进行中' || item.status === '已预约'}
+                condition={item.status === 'booked' || item.status === 'ongoing'}
                 date={item.date}
                 location={item.room ? `${item.room}${item.seat_id ? `-${item.seat_id}` : ''}` : ''}
                 status={item.status}
+                id={item.id}
+                onCancel={handleCancelReservation}
               />
             ))
           )}
