@@ -1,15 +1,7 @@
 import './index.scss';
 import { View, Text, Button } from '@tarojs/components';
 import React from 'react';
-
-interface RecordCardProps {
-  condition: boolean;
-  date: string;
-  location: string;
-  status: string;
-  id?: number | string;
-  onCancel?: (id: number | string) => void;
-}
+import { RecordCardProps } from './types';
 
 // 预约记录卡片
 const RecordCard: React.FC<RecordCardProps> = ({
@@ -28,7 +20,7 @@ const RecordCard: React.FC<RecordCardProps> = ({
           <View className="record-detail">
             <Text className="record-location">{location}</Text>
             <Text className="record-status">{status}</Text>
-            <View style={{marginLeft:"auto"}}>
+            <View style={{ marginLeft: 'auto' }}>
               <Button
                 className="record-btn"
                 onClick={() => id && onCancel && onCancel(id)}

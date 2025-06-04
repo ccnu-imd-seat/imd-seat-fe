@@ -5,21 +5,26 @@ import { Button } from '@taroify/core';
 import React, { useState } from 'react';
 import { login } from '../../apis/user';
 import Taro from '@tarojs/taro';
-
+interface userInfo {
+  username: string;
+  password: string;
+}
 const LoginPage: React.FC = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [userInfo, setUserInfo] = useState<userInfo>({
+    username: '',
+    password: '',
+  });
   const [loading, setLoading] = useState(false);
 
   const handleLogin = async () => {
-    if (!username || !password) {
+    if (!userInfo?.username || !userInfo.password) {
       Taro.showToast({ title: '请输入学号和密码', icon: 'none' });
       return;
     }
     setLoading(true);
 
     try {
-      const res = await login({ username, password });
+      const res = await login(userInfo);
       const { name, student_id } = res;
       // 将用户信息存储到本地
       Taro.setStorageSync('userInfo', { name, student_id });
@@ -46,16 +51,20 @@ const LoginPage: React.FC = () => {
           <Input
             className="login-input"
             placeholder="请输入你的学号"
-            value={username}
-            onInput={e => setUsername(e.detail.value)}
+            value={userInfo?.username}
+            onInput={e =>
+              setUserInfo(prev => ({ ...prev, username: e.detail.value }))
+            }
           />
           <View className="line" />
           <Input
             className="login-input"
             placeholder="请输入你的一站式密码"
             password
-            value={password}
-            onInput={e => setPassword(e.detail.value)}
+            value={userInfo.password}
+            onInput={e =>
+              setUserInfo(prev => ({ ...prev, password: e.detail.value }))
+            }
           />
           <View className="line" />
           <Button

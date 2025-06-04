@@ -6,25 +6,40 @@ import RuleDialog from '../../components/ruleDialog';
 import returnIcon from '../../assets/icons/return.png';
 import Chair from '../../components/chair';
 import ClassroomCard from '../../components/classroom';
-import { getReservationDays, getRooms, getSeats, reserve } from '../../apis/reservation';
+import {
+  getReservationDays,
+  getRooms,
+  getSeats,
+  reserve,
+} from '../../apis/reservation';
 import Taro from '@tarojs/taro';
 import './index.scss';
+import { SiteStatus } from '../../../types';
 
 const AppointPage: React.FC = () => {
   // 预约相关状态
-  const [selectedDay, setSelectedDay] = useState<{ year: number; month: number; day: number } | null>(null);
+  const [selectedDay, setSelectedDay] = useState<{
+    year: number;
+    month: number;
+    day: number;
+  } | null>(null);
   const [selectDialogOpen, setSelectDialogOpen] = useState(false);
   const [ruleDialogOpen, setRuleDialogOpen] = useState(false);
   const [currentTime, setCurrentTime] = useState<'week' | 'day'>('week');
-  const [selectedClassroom, setSelectedClassroom] = useState<string | null>(null);
+  const [selectedClassroom, setSelectedClassroom] = useState<string | null>(
+    null
+  );
   const [selectedSeat, setSelectedSeat] = useState<number | null>(null);
 
   // 后端数据状态
-  const [days, setDays] = useState<{ year: number; month: number; day: number }[]>([]);
+  const [days, setDays] = useState<
+    { year: number; month: number; day: number }[]
+  >([]);
   const [weekRange, setWeekRange] = useState<string>(''); // 周模式下的日期范围
   const [classroomList, setClassroomList] = useState<{ roomNo: string }[]>([]);
-  const [seatStatus, setSeatStatus] = useState<{ num: number; status: 'available' | 'booked' }[]>([]);
-
+  const [seatStatus, setSeatStatus] = useState<
+    { num: number; status: SiteStatus }[]
+  >([]);
 
   // 改变时间模式
   const changeTimeMode = (mode: 'week' | 'day') => {
@@ -34,33 +49,34 @@ const AppointPage: React.FC = () => {
     setSeatStatus([]); // 清除座位状态
     setSelectedSeat(null); // 清除选中的座位
     setWeekRange(''); // 清除周范围
-  }
+  };
 
   // 获取日期
   useEffect(() => {
-    getReservationDays({ type: currentTime })
-      .then(res => {
-        const dateArr = res.dates || [];
-        console.log('获取到的日期数据:', dateArr);
-        if (currentTime === 'day') {
-          // 提取年月日
-          const parsedDays = dateArr.map(d => {
-            const [year, month, day] = d.date.split('-').map(Number);
-            return { year, month, day };
-          });
-          setDays(parsedDays);
-          setSelectedDay(parsedDays.length > 0 ? parsedDays[0] : null);
-        } else if (currentTime === 'week' && dateArr.length > 0) {
-          setWeekRange(dateArr[0].date);
-        }
-      });
+    getReservationDays({ type: currentTime }).then(res => {
+      const dateArr = res.dates || [];
+      console.log('获取到的日期数据:', dateArr);
+      if (currentTime === 'day') {
+        // 提取年月日
+        const parsedDays = dateArr.map(d => {
+          const [year, month, day] = d.date.split('-').map(Number);
+          return { year, month, day };
+        });
+        setDays(parsedDays);
+        setSelectedDay(parsedDays.length > 0 ? parsedDays[0] : null);
+      } else if (currentTime === 'week' && dateArr.length > 0) {
+        setWeekRange(dateArr[0].date);
+      }
+    });
   }, [currentTime]);
 
   // 获取教室
   useEffect(() => {
     getRooms().then(res => {
       console.log('获取到的教室数据:', res);
-      setClassroomList((res.rooms || []).map((room: string) => ({ roomNo: room })));
+      setClassroomList(
+        (res.rooms || []).map((room: string) => ({ roomNo: room }))
+      );
     });
   }, [currentTime]);
 
@@ -100,7 +116,11 @@ const AppointPage: React.FC = () => {
     setSelectDialogOpen: (v: boolean) => void,
     setSelectedSeat: (v: number | null) => void
   ) => {
-    if (!selectedClassroom || !selectedSeat || ((!selectedDay && currentTime === 'day') && !weekRange)) {
+    if (
+      !selectedClassroom ||
+      !selectedSeat ||
+      (!selectedDay && currentTime === 'day' && !weekRange)
+    ) {
       Taro.showToast({ title: '请选择完整预约信息', icon: 'none' });
       return;
     }
@@ -291,8 +311,8 @@ const AppointPage: React.FC = () => {
           currentTime === 'week'
             ? weekRange
             : selectedDay
-            ? `${selectedDay.year}.${selectedDay.month}.${selectedDay.day}`
-            : ''
+              ? `${selectedDay.year}.${selectedDay.month}.${selectedDay.day}`
+              : ''
         }
       />
       {/* 预约机制弹窗 */}

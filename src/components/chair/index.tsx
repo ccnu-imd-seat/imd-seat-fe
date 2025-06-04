@@ -3,10 +3,11 @@ import './index.scss';
 import FreeChair from '../../assets/icons/chair-free.png';
 import BusyChair from '../../assets/icons/chair-busy.png';
 import React from 'react';
+import { SiteStatus } from '../../../types';
 
 interface ChairProps {
   num: number;
-  status: 'available' | 'booked';
+  status: SiteStatus;
   onClick?: () => void;
 }
 
