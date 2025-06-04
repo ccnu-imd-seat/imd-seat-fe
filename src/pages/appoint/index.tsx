@@ -15,6 +15,12 @@ import {
 import Taro from '@tarojs/taro';
 import './index.scss';
 import { SiteStatus } from '../../../types';
+import {
+  getMondayFromWeekRange,
+  buildWeekRange,
+  parseDate,
+  changeWeekRange,
+} from '../../utils/dateUtils';
 
 const AppointPage: React.FC = () => {
   // 预约相关状态
@@ -53,19 +59,28 @@ const AppointPage: React.FC = () => {
 
   // 获取日期
   useEffect(() => {
-    getReservationDays({ type: currentTime }).then(res => {
+    getReservationDays(
+      { type: currentTime },
+      {
+        header: {
+          DEBUG_MODE: '1',
+        },
+      }
+    ).then(res => {
       const dateArr = res.dates || [];
       console.log('获取到的日期数据:', dateArr);
       if (currentTime === 'day') {
         // 提取年月日
         const parsedDays = dateArr.map(d => {
-          const [year, month, day] = d.date.split('-').map(Number);
-          return { year, month, day };
+          const dt = parseDate(d.date);
+          return { year: dt.getFullYear(), month: dt.getMonth() + 1, day: dt.getDate() };
         });
         setDays(parsedDays);
         setSelectedDay(parsedDays.length > 0 ? parsedDays[0] : null);
       } else if (currentTime === 'week' && dateArr.length > 0) {
-        setWeekRange(dateArr[0].date);
+        // 只用周一字符串构建周范围
+        const monday = dateArr[0].date;
+        setWeekRange(buildWeekRange(monday));
       }
     });
   }, [currentTime]);
@@ -88,10 +103,12 @@ const AppointPage: React.FC = () => {
     }
     let dateStr = '';
     if (currentTime === 'day' && selectedDay) {
-      dateStr = `${selectedDay.year}-${selectedDay.month.toString().padStart(2, '0')}-${selectedDay.day.toString().padStart(2, '0')}`;
+      dateStr = `${selectedDay.year}-${selectedDay.month
+        .toString()
+        .padStart(2, '0')}-${selectedDay.day.toString().padStart(2, '0')}`;
     } else if (currentTime === 'week' && weekRange) {
-      // 取周一
-      dateStr = weekRange.split(' —— ')[0];
+      // 用工具函数取周一
+      dateStr = getMondayFromWeekRange(weekRange);
     }
     if (dateStr && selectedClassroom) {
       getSeats({ date: dateStr, room: selectedClassroom }).then(res => {
@@ -139,7 +156,7 @@ const AppointPage: React.FC = () => {
           seat_id: String(selectedSeat),
         },
         {
-          headers: {
+          header: {
             DEBUG_MODE: '1',
           },
         }
@@ -265,7 +282,7 @@ const AppointPage: React.FC = () => {
               <Text className="appoint-date-title">
                 {currentTime === 'day' && selectedDay
                   ? `${selectedDay.month}.${selectedDay.day}`
-                  : weekRange}
+                  : changeWeekRange(weekRange)}
               </Text>
             </View>
             {/* 座位区 */}

@@ -6,7 +6,7 @@ export function reserve(
   params: NonNullable<
     paths['/api/v1/reservation/reserve']['post']['requestBody']
   >['content']['application/json'],
-  options?: { headers?: { DEBUG_MODE?: string } }
+  options?: { header?: { DEBUG_MODE?: string } }
 ): Promise<
   paths['/api/v1/reservation/reserve']['post']['responses']['200']['content']['application/json']['data']
 > {
@@ -15,7 +15,7 @@ export function reserve(
     url: '/api/v1/reservation/reserve',
     data: params,
     header: {
-      ...(options && options.headers ? options.headers : {}),
+      ...(options && options.header ? options.header : {}),
     },
   });
 }
@@ -34,7 +34,8 @@ export function cancelReservation(
 
 // 获取可预约日期
 export function getReservationDays(
-  params?: paths['/api/v1/reservation/days']['get']['parameters']['query']
+  params?: paths['/api/v1/reservation/days']['get']['parameters']['query'],
+  options?: { header?: { DEBUG_MODE?: string } }
 ): Promise<
   paths['/api/v1/reservation/days']['get']['responses']['200']['content']['application/json']['data']
 > {
@@ -42,6 +43,9 @@ export function getReservationDays(
     method: 'GET',
     url: '/api/v1/reservation/days',
     params,
+    header: {
+      ...(options && options.header ? options.header : {}),
+    },
   });
 }
 

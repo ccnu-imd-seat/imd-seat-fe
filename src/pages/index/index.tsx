@@ -139,6 +139,7 @@ export default function Index() {
                 date={item.date}
                 location={item.room ? `${item.room}${item.seat_id ? `-${item.seat_id}` : ''}` : ''}
                 status={item.status}
+                type={item.type}
                 id={item.id}
                 onCancel={handleCancelReservation}
               />

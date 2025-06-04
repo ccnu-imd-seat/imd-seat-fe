@@ -26,6 +26,7 @@
 }
 
 .record-location {
+  width:40%;
   font-family: AlibabaPuHuiTi, AlibabaPuHuiTi;
   font-weight: 400;
   font-size: 18px;
@@ -38,7 +39,10 @@
 }
 
 .record-status {
-  margin-left: 20%;
+  display: flex;
+  flex:1;
+  align-items: center;
+  justify-content: center;
   font-family: AlibabaPuHuiTi, AlibabaPuHuiTi;
   font-weight: 400;
   font-size: 18px;

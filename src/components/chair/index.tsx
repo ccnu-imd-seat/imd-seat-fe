@@ -16,7 +16,7 @@ const Chair: React.FC<ChairProps> = ({ num, status, onClick }) => {
   const icon = status === 'booked' ? BusyChair : FreeChair;
   return (
     <View
-      className={`seat${status !== 'available' ? ' reserved' : ''}`}
+      className={`seat${status !== 'available' ? ' booked' : ''}`}
       onClick={() => {
         if (status === 'available' && onClick) onClick();
       }}
