@@ -73,7 +73,11 @@ const AppointPage: React.FC = () => {
         // 提取年月日
         const parsedDays = dateArr.map(d => {
           const dt = parseDate(d.date);
-          return { year: dt.getFullYear(), month: dt.getMonth() + 1, day: dt.getDate() };
+          return {
+            year: dt.getFullYear(),
+            month: dt.getMonth() + 1,
+            day: dt.getDate(),
+          };
         });
         setDays(parsedDays);
         setSelectedDay(parsedDays.length > 0 ? parsedDays[0] : null);

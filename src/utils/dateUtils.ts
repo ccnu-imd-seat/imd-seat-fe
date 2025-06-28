@@ -22,7 +22,7 @@ export function buildWeekRange(monday: string): string {
 /** 将example '2025-06-09——2025-06-15' 转换为 '6.9-6.15' 形式 */
 export function changeWeekRange(weekRange: string): string {
   const [start, end] = weekRange.replace(/\s*/g, '').split('——');
-  const [ startMonth, startDay] = start.split('-').map(Number);
-  const [ endMonth, endDay] = end.split('-').map(Number);
+  const [startMonth, startDay] = start.split('-').map(Number);
+  const [endMonth, endDay] = end.split('-').map(Number);
   return `${startMonth}.${startDay}-${endMonth}.${endDay}`;
 }

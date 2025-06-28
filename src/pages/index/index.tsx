@@ -23,11 +23,13 @@ export default function Index() {
   const [reserveList, setReserveList] = React.useState<any[]>([]);
   // 违约列表状态（如有接口可后续实现）
   const [violationList] = React.useState<any[]>([]);
+  //信誉分
+  const [creditScore, setCreditScore] = React.useState<number | null>(null);
 
   // 页面显示时获取预约数据
   const fetchReservations = React.useCallback(() => {
     getMyReservations()
-      .then((res) => {
+      .then(res => {
         console.log('预约数据:', res); // 打印预约的数据
         if (Array.isArray(res)) {
           setReserveList(res);
@@ -47,7 +49,7 @@ export default function Index() {
     fetchReservations();
   }, [fetchReservations]);
 
-  // 每次页面展示时都获取数据（小程序专用）
+  // 每次页面展示时都获取数据
   useDidShow(() => {
     fetchReservations();
   });
@@ -123,6 +125,11 @@ export default function Index() {
 
         {/* 预约/违约记录列表 */}
         <View className="record-list">
+          {current === 1 && (
+            <View className="credit-score-box">
+              <Text>当前信誉分：{creditScore ?? '--'}</Text>
+            </View>
+          )}
           {(current === 0 ? reserveList : violationList).length === 0 ? (
             <View className="record-list__empty">
               {current === 0 ? (
@@ -135,9 +142,12 @@ export default function Index() {
             (current === 0 ? reserveList : violationList).map((item, idx) => (
               <RecordCard
                 key={item.id || idx}
-                condition={item.status === 'booked' || item.status === 'ongoing'}
                 date={item.date}
-                location={item.room ? `${item.room}${item.seat_id ? `-${item.seat_id}` : ''}` : ''}
+                location={
+                  item.room
+                    ? `${item.room}${item.seat_id ? `-${item.seat_id}` : ''}`
+                    : ''
+                }
                 status={item.status}
                 type={item.type}
                 id={item.id}

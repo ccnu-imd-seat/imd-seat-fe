@@ -19,7 +19,7 @@ const SuggestDialog: React.FC<SuggestDialogProps> = ({
 
   if (!open) return null;
 
-  const handleInput = (e) => {
+  const handleInput = e => {
     setInputValue(e.detail.value);
   };
 

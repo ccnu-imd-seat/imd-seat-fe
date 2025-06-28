@@ -17,7 +17,10 @@ const ScanPage = () => {
       // 假设扫码内容为 seat_id，传给后端
       try {
         const checkinRes = await checkin({ seat_id: scanResult });
-        Taro.showToast({ title: checkinRes.message || '签到成功', icon: 'success' });
+        Taro.showToast({
+          title: checkinRes.message || '签到成功',
+          icon: 'success',
+        });
       } catch (e: any) {
         Taro.showToast({ title: e?.message || '签到失败', icon: 'none' });
       }

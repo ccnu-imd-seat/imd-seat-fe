@@ -62,9 +62,17 @@ export async function request<T = any>({
     requestUrl += (requestUrl.includes('?') ? '&' : '?') + queryString;
   }
 
-  if(!header['DEBUG_MODE']) {
-  console.log('[request]', { method, url: requestUrl, data, header, params });}
-  else {console.log('[request]', { method, url: requestUrl, data, DEBUG_MODE: header['DEBUG_MODE'], params });}
+  if (!header['DEBUG_MODE']) {
+    console.log('[request]', { method, url: requestUrl, data, header, params });
+  } else {
+    console.log('[request]', {
+      method,
+      url: requestUrl,
+      data,
+      DEBUG_MODE: header['DEBUG_MODE'],
+      params,
+    });
+  }
 
   const token = Taro.getStorageSync('token');
   if (token) {
