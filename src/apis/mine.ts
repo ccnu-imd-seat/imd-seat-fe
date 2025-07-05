@@ -13,7 +13,7 @@ export function getMyReservations(): Promise<
 
 // 获取信誉分
 export function getScore(): Promise<
-  paths['/api/v1/mine/score']['get']['responses']['200']['content']['application/json']
+  paths['/api/v1/mine/score']['get']['responses']['200']['content']['application/json']['data']
 > {
   return request({
     method: 'GET',

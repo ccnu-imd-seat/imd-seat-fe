@@ -10,6 +10,8 @@ import SuggestDialog from '../../components/suggestDialog';
 import { getMyReservations } from '../../apis/mine';
 import { postFeedback } from '../../apis/feedback';
 import { cancelReservation } from '../../apis/reservation';
+import { getScore } from '../../apis/mine';
+import {groupAndSortByStatusAndDate} from '../../utils/dealRecrds';
 import './index.scss';
 
 export default function Index() {
@@ -21,32 +23,50 @@ export default function Index() {
   const userInfo = Taro.getStorageSync('userInfo');
   // 预约列表状态
   const [reserveList, setReserveList] = React.useState<any[]>([]);
-  // 违约列表状态（如有接口可后续实现）
-  const [violationList] = React.useState<any[]>([]);
+  // 违约列表状态
+  const [violationList, setViolationList] = React.useState<any[]>([]);
   //信誉分
   const [creditScore, setCreditScore] = React.useState<number | null>(null);
 
+  // 获取用户信誉分
+  const fetchCreditScore = React.useCallback(async () => {
+    try {
+      const res = await getScore();
+      console.log('用户信誉分:', res);
+      setCreditScore(res.score);
+    } catch (e) {
+      setCreditScore(null);
+      console.error('获取信誉分失败:', e);
+    }
+  }, []);
+
   // 页面显示时获取预约数据
-  const fetchReservations = React.useCallback(() => {
-    getMyReservations()
-      .then(res => {
-        console.log('预约数据:', res); // 打印预约的数据
-        if (Array.isArray(res)) {
-          setReserveList(res);
-        } else if (res && typeof res === 'object') {
-          setReserveList([res]);
-        } else {
-          setReserveList([]);
-        }
-      })
-      .catch(() => {
+  const fetchReservations = React.useCallback(async () => {
+    try {
+      const res = await getMyReservations();
+      console.log('预约数据:', res);
+      if (Array.isArray(res)) {
+        const { reserveList, violationList } = groupAndSortByStatusAndDate(res);
+        setReserveList(reserveList);
+        setViolationList(violationList);
+      } else if (res && typeof res === 'object') {
+        setReserveList([res]);
+        setViolationList([]);
+      } else {
         setReserveList([]);
-      });
+        setViolationList([]);
+      }
+    } catch (e) {
+      setReserveList([]);
+      setViolationList([]);
+      console.error('获取预约数据失败:', e);
+    }
   }, []);
 
   // 页面挂载时获取一次
   useEffect(() => {
     fetchReservations();
+    fetchCreditScore();
   }, [fetchReservations]);
 
   // 每次页面展示时都获取数据
@@ -58,7 +78,11 @@ export default function Index() {
   const handleCancelReservation = async (id: number | string) => {
     Taro.showLoading({ title: '取消中...' });
     try {
-      await cancelReservation(String(id));
+      await cancelReservation(String(id), {
+        header: {
+          DEBUG_MODE: '1',
+        },
+      });
       Taro.hideLoading();
       Taro.showToast({ title: '取消成功', icon: 'success' });
       fetchReservations(); // 重新获取预约数据
@@ -127,7 +151,7 @@ export default function Index() {
         <View className="record-list">
           {current === 1 && (
             <View className="credit-score-box">
-              <Text>当前信誉分：{creditScore ?? '--'}</Text>
+              <Text>我的信誉分：{creditScore ?? '--'}</Text>
             </View>
           )}
           {(current === 0 ? reserveList : violationList).length === 0 ? (

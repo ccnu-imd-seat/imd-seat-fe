@@ -1,6 +1,6 @@
 import './index.scss';
 import { View, Text, Button } from '@tarojs/components';
-import React, { useState } from 'react';
+import React from 'react';
 import { RecordCardProps } from './types';
 import { buildWeekRange } from '@/utils/dateUtils';
 
@@ -13,65 +13,74 @@ const RecordCard: React.FC<RecordCardProps> = ({
   id,
   onCancel,
 }) => {
-  const [statusText, setStatusText] = useState('');
-  if (type === 'week') {
-    date = buildWeekRange(date);
-  }
+  // 处理日期显示
+  const displayDate = type === 'week' ? buildWeekRange(date) : date;
 
-  let actionButton: React.ReactNode = null;
-  switch (status) {
-    case 'reserved':
-      actionButton = (
-        <Button
-          className="record-btn record-btn-cancel"
-          onClick={() => id && onCancel && onCancel(id)}
-        >
-          取消预约
-        </Button>
-      );
-      setStatusText('已预约');
-      break;
-    case 'active':
-      actionButton = (
-        <Button className="record-btn record-btn-active" disabled>
-          已生效
-        </Button>
-      );
-      setStatusText('已生效');
-      break;
-    case 'completed':
-      actionButton = (
-        <Button className="record-btn record-btn-completed" disabled>
-          已完成
-        </Button>
-      );
-      setStatusText('已完成');
-      break;
-    case 'cancelled':
-      actionButton = (
-        <Button className="record-btn record-btn-cancelled" disabled>
-          已取消
-        </Button>
-      );
-      setStatusText('已取消');
-      break;
-    case 'breached':
-      actionButton = (
-        <Button className="record-btn record-btn-breached" disabled>
-          违约
-        </Button>
-      );
-      setStatusText('违约');
-      break;
-    default:
-      actionButton = null;
-      setStatusText('未知状态');
-  }
+  // 根据状态计算显示文本和按钮
+  const getStatusInfo = () => {
+    switch (status) {
+      case 'booked':
+        return {
+          text: '已预约',
+          button: (
+            <Button
+              className="record-btn record-btn-booked"
+              onClick={() => id && onCancel && onCancel(id)}
+            >
+              取消预约
+            </Button>
+          ),
+        };
+      case 'effective':
+        return {
+          text: '已生效',
+          button: (
+            <Button className="record-btn record-btn-effective" disabled>
+              已生效
+            </Button>
+          ),
+        };
+      case 'completed':
+        return {
+          text: '已完成',
+          button: (
+            <Button className="record-btn record-btn-completed" disabled>
+              已完成
+            </Button>
+          ),
+        };
+      case 'cancelled':
+        return {
+          text: '已取消',
+          button: (
+            <Button className="record-btn record-btn-cancelled" disabled>
+              已取消
+            </Button>
+          ),
+        };
+      case 'violated':
+        return {
+          text: '违约',
+          button: (
+            <Button className="record-btn record-btn-violated" disabled>
+              违约
+            </Button>
+          ),
+        };
+      default:
+        return {
+          text: '未知状态',
+          button: null,
+        };
+    }
+  };
+
+  const { text: statusText, button: actionButton } = getStatusInfo();
 
   return (
     <>
       <View className="record-card">
-        <View className="record-date">{date}</View>
+        <View className="record-date">{displayDate}</View>
         <View className="record-detail">
           <Text className="record-location">南湖综合楼{location}</Text>
           <Text className={`record-status`}>{statusText}</Text>

@@ -26,7 +26,7 @@
 }
 
 .record-location {
-  width: 40%;
+  width: 35%;
   font-family: AlibabaPuHuiTi, AlibabaPuHuiTi;
   font-weight: 400;
   font-size: 18px;
@@ -72,14 +72,15 @@
   height: 35px;
   background: #f59e9b;
   margin-left: auto;
+  border-radius: 20px;
 }
 
-.record-btn-reserved {
+.record-btn-booked {
   background: #f59e9b;
   color: #8b0c0c;
 }
 
-.record-btn-active {
+.record-btn-effective {
   background: #79cdfa !important;
   color: #1769aa !important;
 }
@@ -94,7 +95,7 @@
   color: #888 !important;
 }
 
-.record-btn-breached {
+.record-btn-violated {
   background: #ffd6d6 !important;
   color: #d32f2f !important;
 }

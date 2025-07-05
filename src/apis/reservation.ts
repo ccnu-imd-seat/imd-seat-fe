@@ -22,13 +22,17 @@ export function reserve(
 
 // 取消预约
 export function cancelReservation(
-  id: string
+  id: string,
+  options?: { header?: { DEBUG_MODE?: string } }
 ): Promise<
   paths['/api/v1/reservation/cancel/{id}']['delete']['responses']['200']['content']['application/json']
 > {
   return request({
     method: 'DELETE',
     url: `/api/v1/reservation/cancel/${id}`,
+    header: {
+      ...(options && options.header ? options.header : {}),
+    },
   });
 }
 
