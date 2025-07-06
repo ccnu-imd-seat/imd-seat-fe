@@ -203,11 +203,35 @@ const AppointPage: React.FC = () => {
 
         {/* 日期选择 */}
         {currentTime === 'week' ? (
+          weekRange ? (
+            <View
+              className="appoint-date-row"
+              style={{ justifyContent: 'center' }}
+            >
+              <Text className="appoint-date-week">{weekRange}</Text>
+            </View>
+          ) : (
+            <View
+              className="appoint-date-row"
+              style={{
+                justifyContent: 'center',
+                alignItems: 'center',
+                height: 40,
+              }}
+            >
+              <Text className="appoint-no-time">暂无可预约时间</Text>
+            </View>
+          )
+        ) : days.length === 0 ? (
           <View
             className="appoint-date-row"
-            style={{ justifyContent: 'center' }}
+            style={{
+              justifyContent: 'center',
+              alignItems: 'center',
+              height: 40,
+            }}
           >
-            <Text className="appoint-date-week">{weekRange}</Text>
+            <Text className="appoint-no-time">暂无可预约时间</Text>
           </View>
         ) : (
           <View className="appoint-date-row">
@@ -248,14 +272,19 @@ const AppointPage: React.FC = () => {
             </View>
             {/* 教室卡片列表 */}
             <View className="appoint-classroom-area">
-              {classroomList.map(cls => (
-                <View
-                  key={cls.roomNo}
-                  onClick={() => setSelectedClassroom(cls.roomNo)}
-                >
-                  <ClassroomCard roomNo={cls.roomNo} />
-                </View>
-              ))}
+              {classroomList.length === 0 ||
+              (currentTime === 'week' ? !weekRange : days.length === 0) ? (
+                <View className="appoint-no-room">暂无可预约教室</View>
+              ) : (
+                classroomList.map(cls => (
+                  <View
+                    key={cls.roomNo}
+                    onClick={() => setSelectedClassroom(cls.roomNo)}
+                  >
+                    <ClassroomCard roomNo={cls.roomNo} />
+                  </View>
+                ))
+              )}
             </View>
           </>
         ) : (

@@ -176,6 +176,26 @@
     }
   }
 
+  // 若无可选时间
+  .appoint-no-time {
+    color: #000;
+    font-size: 16px;
+    letter-spacing: 3px;
+  }
+
+  // 若无可选教室
+  .appoint-no-room {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    text-align: center;
+    font-size: 30px;
+    margin-top: 50px;
+    letter-spacing: 2px;
+    color: #999;
+  }
+
   // 教室选择行
   .appoint-room-row {
     width: 100%;

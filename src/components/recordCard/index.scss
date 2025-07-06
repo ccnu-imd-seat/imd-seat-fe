@@ -65,7 +65,7 @@
   font-size: 12px;
   color: #8b0c0c;
   line-height: 16px;
-  letter-spacing: 1px;
+  letter-spacing: 2px;
   font-style: normal;
   text-transform: none;
   width: 82px;
@@ -76,26 +76,40 @@
 }
 
 .record-btn-booked {
-  background: #f59e9b;
-  color: #8b0c0c;
+  background: #94f2f5 !important;
+  color: #165964 !important;
+  box-shadow:
+    0 4px 16px rgba(22, 89, 100, 0.22),
+    0 3px 8px rgba(0, 0, 0, 0.15);
+  transition:
+    box-shadow 0.15s,
+    transform 0.1s;
+  cursor: pointer;
+
+  &:active {
+    box-shadow:
+      0 2px 6px rgba(22, 89, 100, 0.15),
+      0 1.5px 4px rgba(0, 0, 0, 0.1);
+    transform: scale(0.97);
+  }
 }
 
 .record-btn-effective {
-  background: #79cdfa !important;
-  color: #1769aa !important;
+  background: #c5ffc8 !important;
+  color: #2cb611 !important;
 }
 
 .record-btn-completed {
-  background: #b6e3b6 !important;
-  color: #1a7f1a !important;
+  background: #c3eaff !important;
+  color: #39baff !important;
 }
 
 .record-btn-cancelled {
-  background: #e0e0e0 !important;
-  color: #888 !important;
+  background: #d0dde3 !important;
+  color: #5a6971 !important;
 }
 
 .record-btn-violated {
-  background: #ffd6d6 !important;
-  color: #d32f2f !important;
+  background: #f59e9b !important;
+  color: #8b0c0c !important;
 }

@@ -11,7 +11,7 @@ import { getMyReservations } from '../../apis/mine';
 import { postFeedback } from '../../apis/feedback';
 import { cancelReservation } from '../../apis/reservation';
 import { getScore } from '../../apis/mine';
-import {groupAndSortByStatusAndDate} from '../../utils/dealRecrds';
+import { groupAndSortByStatusAndDate } from '../../utils/dealRecrds';
 import './index.scss';
 
 export default function Index() {
