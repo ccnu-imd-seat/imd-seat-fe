@@ -12,6 +12,7 @@ import { postFeedback } from '../../apis/feedback';
 import { cancelReservation } from '../../apis/reservation';
 import { getScore } from '../../apis/mine';
 import { groupAndSortByStatusAndDate } from '../../utils/dealRecrds';
+import { checkAuth } from '@/utils/auth';
 import './index.scss';
 
 export default function Index() {
@@ -63,11 +64,19 @@ export default function Index() {
     }
   }, []);
 
-  // 页面挂载时获取一次
+  // 页面挂载时检查登录状态并获取一次
   useEffect(() => {
-    fetchReservations();
-    fetchCreditScore();
-  }, [fetchReservations]);
+    const checkLogin = async () => {
+      const authed = await checkAuth();
+      if (!authed) {
+        Taro.redirectTo({ url: '/pages/login/index' });
+        return;
+      }
+      fetchReservations();
+      fetchCreditScore();
+    };
+    checkLogin();
+  }, [fetchReservations, fetchCreditScore]);
 
   // 每次页面展示时都获取数据
   useDidShow(() => {

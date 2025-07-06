@@ -5,10 +5,13 @@ import { Button } from '@taroify/core';
 import React, { useState } from 'react';
 import { login } from '../../apis/user';
 import Taro from '@tarojs/taro';
+
 interface userInfo {
   username: string;
   password: string;
 }
+
+// 登录页面
 const LoginPage: React.FC = () => {
   const [userInfo, setUserInfo] = useState<userInfo>({
     username: '',
