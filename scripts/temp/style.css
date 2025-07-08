@@ -1,0 +1,8 @@
+@font-face {
+	font-family: 'AlibabaPuHuiTi-3-65-Medium';
+	src: url('AlibabaPuHuiTi-3-65-Medium.ttf') format('truetype');
+}
+
+.text-item {
+	font-family: 'AlibabaPuHuiTi-3-65-Medium';
+}
