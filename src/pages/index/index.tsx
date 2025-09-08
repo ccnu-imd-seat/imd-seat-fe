@@ -67,12 +67,11 @@ export default function Index() {
   // 页面挂载时检查登录状态并获取一次
   useEffect(() => {
     const checkLogin = async () => {
-      // const authed = await checkAuth();
-      // if (!authed) {
-      //   Taro.redirectTo({ url: '/pages/login/index' });
-      //   return;
-      // }
-      Taro.setStorageSync("token","eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdHVkZW50X2lkIjoiMjAyNDIxNDc0NCJ9.SOWMEgrlpWL64WEXqfK-LgJplBMLjJnYLXXJxJyae5Y")
+      const authed = await checkAuth();
+      if (!authed) {
+        Taro.redirectTo({ url: '/pages/login/index' });
+        return;
+      }
       fetchReservations();
       fetchCreditScore();
     };

@@ -168,6 +168,17 @@ const AppointPage: React.FC = () => {
       Taro.showToast({ title: '预约成功', icon: 'success' });
       setSelectDialogOpen(false);
       setSelectedSeat(null);
+
+      // 预约成功后刷新座位状态
+      if (dateStr && selectedClassroom) {
+        const res = await getSeats({ date: dateStr, room: selectedClassroom });
+        setSeatStatus(
+          (res.seats || []).map((seat: any) => ({
+            num: seat.seat_id,
+            status: seat.status === 'available' ? 'available' : 'booked',
+          }))
+        );
+      }
     } catch (e: any) {
       Taro.showToast({ title: e?.message || '预约失败', icon: 'none' });
     }

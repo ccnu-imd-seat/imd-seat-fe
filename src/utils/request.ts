@@ -1,7 +1,7 @@
 import Taro from '@tarojs/taro';
 
 // 基础 URL
-const BASE_URL = 'http://121.43.151.190:8080';
+const BASE_URL = 'https://seat.muxixyz.com';
 
 interface RequestOptions {
   method: keyof Taro.request.Method;
