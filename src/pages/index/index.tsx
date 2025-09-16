@@ -31,6 +31,11 @@ export default function Index() {
 
   // 获取用户信誉分
   const fetchCreditScore = React.useCallback(async () => {
+    const authed = checkAuth();
+    if (!authed) {
+      Taro.redirectTo({ url: '/pages/login/index' });
+      return;
+    }
     try {
       const res = await getScore();
       console.log('用户信誉分:', res);
@@ -43,6 +48,11 @@ export default function Index() {
 
   // 页面显示时获取预约数据
   const fetchReservations = React.useCallback(async () => {
+    const authed = checkAuth();
+    if (!authed) {
+      Taro.redirectTo({ url: '/pages/login/index' });
+      return;
+    }
     try {
       const res = await getMyReservations();
       console.log('预约数据:', res);
@@ -64,18 +74,10 @@ export default function Index() {
     }
   }, []);
 
-  // 页面挂载时检查登录状态并获取一次
+  // 页面挂载时获取数据
   useEffect(() => {
-    const checkLogin = async () => {
-      const authed = await checkAuth();
-      if (!authed) {
-        Taro.redirectTo({ url: '/pages/login/index' });
-        return;
-      }
-      fetchReservations();
-      fetchCreditScore();
-    };
-    checkLogin();
+    fetchReservations();
+    fetchCreditScore();
   }, [fetchReservations, fetchCreditScore]);
 
   // 每次页面展示时都获取数据
@@ -133,7 +135,7 @@ export default function Index() {
             <Image src={avatar} />
           </View>
           <View className="home-user-info">
-            <View className="home-user-name">姓名：{userInfo.name}</View>
+            {/* <View className="home-user-name">姓名：{userInfo.name}</View> */}
             <View className="home-user-id">学号：{userInfo.student_id}</View>
           </View>
         </View>

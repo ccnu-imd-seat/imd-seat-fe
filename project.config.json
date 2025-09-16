@@ -15,7 +15,19 @@
       "disablePlugins": [],
       "outputPath": ""
     },
-    "swc": true
+    "swc": true,
+    "compileWorklet": false,
+    "uglifyFileName": false,
+    "uploadWithSourceMap": true,
+    "packNpmManually": false,
+    "packNpmRelationList": [],
+    "minifyWXSS": true,
+    "minifyWXML": true,
+    "localPlugins": false,
+    "disableUseStrict": false,
+    "useCompilerPlugins": false,
+    "condition": false,
+    "disableSWC": false
   },
   "compileType": "miniprogram",
   "libVersion": "3.8.2",
@@ -29,5 +41,6 @@
     "tabIndent": "insertSpaces",
     "tabSize": 2
   },
-  "isGameTourist": false
+  "isGameTourist": false,
+  "simulatorPluginLibVersion": {}
 }

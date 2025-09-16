@@ -204,7 +204,7 @@ function generateHtmlFile() {
 <body>
     <div class="container">
         <h1>🔤 页面文字提取结果</h1>
-        
+
         <div class="stats">
             <h3>📊 统计信息</h3>
             <p><strong>提取文字总数:</strong> ${sortedTexts.length} 个</p>

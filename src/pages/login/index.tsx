@@ -47,7 +47,7 @@ const LoginPage: React.FC = () => {
       <View className="login-header">
         <View className="login-hello">Hello</View>
         <View className="login-greet">你好！</View>
-        <View className="login-welcome">欢迎来到习享空间～</View>
+        <View className="login-welcome">欢迎来到【研在信管】空间预约</View>
       </View>
       <View className="login-form-card">
         <View className="login-form">
@@ -81,7 +81,7 @@ const LoginPage: React.FC = () => {
           </Button>
         </View>
       </View>
-      <View className="login-footer">共享自习资源预约管理平台</View>
+      <View className="login-footer">智信思政管理平台</View>
     </View>
   );
 };

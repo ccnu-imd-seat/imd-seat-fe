@@ -4,7 +4,9 @@ import Taro from '@tarojs/taro';
 export function checkAuth() {
   try {
     const userInfo = Taro.getStorageSync('userInfo');
-    if (!userInfo || !userInfo.student_id) {
+    const token = Taro.getStorageSync('token');
+    console.log('Auth Check - userInfo:', userInfo);
+    if (!userInfo || !userInfo.student_id || !token) {
       Taro.redirectTo({ url: '/pages/login/index' });
       return false;
     }
