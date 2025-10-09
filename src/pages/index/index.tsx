@@ -7,12 +7,15 @@ import suggest from '../../assets/icons/home-suggest.png';
 import homeBg from '../../assets/bg/home.png';
 import RecordCard from '../../components/recordCard';
 import SuggestDialog from '../../components/suggestDialog';
+import DownLoadButton from '../../components/downLoadButtun';
+import Narbar from '../../components/narbar';
 import { getMyReservations } from '../../apis/mine';
 import { postFeedback } from '../../apis/feedback';
 import { cancelReservation } from '../../apis/reservation';
 import { getScore } from '../../apis/mine';
 import { groupAndSortByStatusAndDate } from '../../utils/dealRecrds';
 import { checkAuth } from '@/utils/auth';
+import { getSupremeData, getAdminList } from '../../apis/admin';
 import './index.scss';
 
 export default function Index() {
@@ -28,6 +31,21 @@ export default function Index() {
   const [violationList, setViolationList] = React.useState<any[]>([]);
   //信誉分
   const [creditScore, setCreditScore] = React.useState<number | null>(null);
+  //管理员列表
+  const [adminList, setAdminList] = React.useState<string[]>([]);
+
+  //检测是否是管理员
+  const isAdmin = () => {
+    if (!userInfo || !userInfo.student_id) {
+      console.log('用户信息未加载');
+      return false;
+    }
+    if (adminList.includes(userInfo.student_id)) {
+      console.log('用户是管理员');
+      return true;
+    }
+    return false;
+  };
 
   // 获取用户信誉分
   const fetchCreditScore = React.useCallback(async () => {
@@ -46,7 +64,7 @@ export default function Index() {
     }
   }, []);
 
-  // 页面显示时获取预约数据
+  // 获取预约数据
   const fetchReservations = React.useCallback(async () => {
     const authed = checkAuth();
     if (!authed) {
@@ -74,17 +92,6 @@ export default function Index() {
     }
   }, []);
 
-  // 页面挂载时获取数据
-  useEffect(() => {
-    fetchReservations();
-    fetchCreditScore();
-  }, [fetchReservations, fetchCreditScore]);
-
-  // 每次页面展示时都获取数据
-  useDidShow(() => {
-    fetchReservations();
-  });
-
   // 取消预约逻辑
   const handleCancelReservation = async (id: number | string) => {
     Taro.showLoading({ title: '取消中...' });
@@ -103,8 +110,65 @@ export default function Index() {
     }
   };
 
+  //获取管理员名单
+  const fetchAdminList = React.useCallback(async () => {
+    try {
+      const data = await getAdminList();
+      console.log('管理员名单:', data.admins);
+      if (Array.isArray(data.admins)) {
+        setAdminList(data.admins);
+      } else {
+        setAdminList([]);
+      }
+    } catch (error) {
+      console.error('获取管理员名单失败:', error);
+      setAdminList([]);
+    }
+  }, []);
+
+  // 处理下载数据逻辑
+  const handleDownloadData = async () => {
+    Taro.showLoading({ title: '获取数据中...' });
+    try {
+      const data = await getSupremeData();
+      const jsonString = JSON.stringify(data, null, 2);
+      const fs = Taro.getFileSystemManager();
+      const fileName = 'appoint_data.json';
+      const tempFilePath = `${Taro.env.USER_DATA_PATH}/${fileName}`;
+
+      fs.writeFileSync(tempFilePath, jsonString, 'utf8');
+
+      try {
+        await Taro.openDocument({ filePath: tempFilePath });
+        Taro.showToast({ title: '文件已打开', icon: 'success' });
+      } catch {
+        await Taro.setClipboardData({ data: jsonString });
+        Taro.showToast({ title: '数据已复制到剪贴板', icon: 'success' });
+      }
+    } catch (error) {
+      console.error('获取数据失败:', error);
+      Taro.showToast({ title: '获取数据失败', icon: 'none' });
+    } finally {
+      Taro.hideLoading();
+    }
+  };
+
+  // 页面挂载时获取数据
+  useEffect(() => {
+    fetchReservations();
+    fetchCreditScore();
+    fetchAdminList();
+  }, [fetchReservations, fetchCreditScore, fetchAdminList]);
+
+  // 每次页面展示时都获取数据
+  useDidShow(() => {
+    fetchReservations();
+  });
+
   return (
     <>
+      {/* 自定义导航栏 */}
+      <Narbar />
       <View className="home-page">
         {/* 背景图片 */}
         <Image className="home-bg" src={homeBg} mode="aspectFill" />
@@ -135,7 +199,18 @@ export default function Index() {
             <Image src={avatar} />
           </View>
           <View className="home-user-info">
-            {/* <View className="home-user-name">姓名：{userInfo.name}</View> */}
+            {isAdmin() && (
+              <DownLoadButton
+                onClick={async () => {
+                  try {
+                    const data = await handleDownloadData();
+                    console.log('下载的数据:', data);
+                  } catch (error) {
+                    // 错误已在handleDownloadData中处理
+                  }
+                }}
+              />
+            )}
             <View className="home-user-id">学号：{userInfo.student_id}</View>
           </View>
         </View>

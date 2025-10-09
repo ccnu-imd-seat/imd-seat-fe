@@ -6,6 +6,7 @@ import RuleDialog from '../../components/ruleDialog';
 import returnIcon from '../../assets/icons/return.png';
 import Chair from '../../components/chair';
 import ClassroomCard from '../../components/classroom';
+import Narbar from '../../components/narbar';
 import {
   getReservationDays,
   getRooms,
@@ -46,6 +47,7 @@ const AppointPage: React.FC = () => {
   const [seatStatus, setSeatStatus] = useState<
     { num: number; status: SiteStatus }[]
   >([]);
+  const [showNoRoom, setShowNoRoom] = useState(false); // 控制“暂无可预约教室”显示
 
   // 改变时间模式
   const changeTimeMode = (mode: 'week' | 'day') => {
@@ -184,8 +186,23 @@ const AppointPage: React.FC = () => {
     }
   };
 
+  // 判断是否需要显示暂无可预约教室
+  useEffect(() => {
+    if (
+      classroomList.length === 0 ||
+      (currentTime === 'week' ? !weekRange : days.length === 0)
+    ) {
+      const timer = setTimeout(() => setShowNoRoom(true), 1000);
+      return () => clearTimeout(timer);
+    } else {
+      setShowNoRoom(false);
+    }
+  }, [classroomList, currentTime, weekRange, days]);
+
   return (
     <>
+      {/* 自定义导航栏 */}
+      <Narbar />
       <View className="appoint-page">
         {/* 预约方式选择 */}
         <View className="appoint-mode-row">
@@ -285,7 +302,9 @@ const AppointPage: React.FC = () => {
             <View className="appoint-classroom-area">
               {classroomList.length === 0 ||
               (currentTime === 'week' ? !weekRange : days.length === 0) ? (
-                <View className="appoint-no-room">暂无可预约教室</View>
+                showNoRoom ? (
+                  <View className="appoint-no-room">暂无可预约教室</View>
+                ) : null
               ) : (
                 classroomList.map(cls => (
                   <View

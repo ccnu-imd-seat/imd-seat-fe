@@ -1,0 +1,36 @@
+.bt-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  font-family: AlibabaPuHuiTi, AlibabaPuHuiTi;
+  font-weight: 500;
+  color: #054263;
+  line-height: 33px;
+  letter-spacing: 6px;
+  text-align: left;
+  font-style: normal;
+  text-transform: none;
+  margin-bottom: 11px;
+
+  .bt-text {
+    font-family: AlibabaPuHuiTi, AlibabaPuHuiTi;
+    font-weight: 500;
+    font-size: 20px;
+    color: #03537e;
+    line-height: 25px;
+    letter-spacing: 4px;
+    text-align: left;
+    font-style: normal;
+    text-transform: none;
+  }
+
+  .bt-icon {
+    width: 20px;
+    height: 20px;
+    margin-left: 3px;
+    background-image: url('../../assets/icons/download.png');
+    background-size: cover;
+    background-position: center;
+  }
+}
