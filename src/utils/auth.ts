@@ -5,7 +5,7 @@ export function checkAuth() {
   try {
     const userInfo = Taro.getStorageSync('userInfo');
     const token = Taro.getStorageSync('token');
-    console.log('Auth Check - userInfo:', userInfo);
+    // console.log('Auth Check - userInfo:', userInfo);
     if (!userInfo || !userInfo.student_id || !token) {
       Taro.redirectTo({ url: '/pages/login/index' });
       return false;

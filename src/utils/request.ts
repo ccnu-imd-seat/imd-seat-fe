@@ -62,17 +62,17 @@ export async function request<T = any>({
     requestUrl += (requestUrl.includes('?') ? '&' : '?') + queryString;
   }
 
-  if (!header['DEBUG_MODE']) {
-    console.log('[request]', { method, url: requestUrl, data, header, params });
-  } else {
-    console.log('[request]', {
-      method,
-      url: requestUrl,
-      data,
-      DEBUG_MODE: header['DEBUG_MODE'],
-      params,
-    });
-  }
+  // if (!header['DEBUG_MODE']) {
+  //   // console.log('[request]', { method, url: requestUrl, data, header, params });
+  // } else {
+  //   // console.log('[request]', {
+  //     method,
+  //     url: requestUrl,
+  //     data,
+  //     DEBUG_MODE: header['DEBUG_MODE'],
+  //     params,
+  //   });
+  // }
 
   const token = Taro.getStorageSync('token');
   if (token) {
@@ -92,15 +92,15 @@ export async function request<T = any>({
 
     const { statusCode, data: resData, header: resHeader } = res;
 
-    console.log('X-JWT-Token header:', resHeader['x-jwt-token'] || resHeader['X-JWT-Token']);
+    // console.log('X-JWT-Token header:', resHeader['x-jwt-token'] || resHeader['X-JWT-Token']);
     const newToken =
     resHeader['x-jwt-token'] ||
     resHeader['X-JWT-Token'] ||
     resHeader['X-Jwt-Token'];
-    console.log('New Token from response header:', newToken ? newToken : 'No token in header');
+    // console.log('New Token from response header:', newToken ? newToken : 'No token in header');
     if (newToken) {
       Taro.setStorageSync('token', newToken);
-      console.log('Token updated in storage.');
+      // console.log('Token updated in storage.');
     }
 
     if (statusCode >= 200 && statusCode < 300) {

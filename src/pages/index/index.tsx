@@ -37,11 +37,11 @@ export default function Index() {
   //检测是否是管理员
   const isAdmin = () => {
     if (!userInfo || !userInfo.student_id) {
-      console.log('用户信息未加载');
+      // console.log('用户信息未加载');
       return false;
     }
     if (adminList.includes(userInfo.student_id)) {
-      console.log('用户是管理员');
+      // console.log('用户是管理员');
       return true;
     }
     return false;
@@ -56,7 +56,7 @@ export default function Index() {
     }
     try {
       const res = await getScore();
-      console.log('用户信誉分:', res);
+      // console.log('用户信誉分:', res);
       setCreditScore(res.score);
     } catch (e) {
       setCreditScore(null);
@@ -73,7 +73,7 @@ export default function Index() {
     }
     try {
       const res = await getMyReservations();
-      console.log('预约数据:', res);
+      // console.log('预约数据:', res);
       if (Array.isArray(res)) {
         const { reserveList, violationList } = groupAndSortByStatusAndDate(res);
         setReserveList(reserveList);
@@ -98,7 +98,7 @@ export default function Index() {
     try {
       await cancelReservation(String(id), {
         header: {
-          DEBUG_MODE: '1',
+          DEBUG_MODE: '',
         },
       });
       Taro.hideLoading();
@@ -114,7 +114,7 @@ export default function Index() {
   const fetchAdminList = React.useCallback(async () => {
     try {
       const data = await getAdminList();
-      console.log('管理员名单:', data.admins);
+      // console.log('管理员名单:', data.admins);
       if (Array.isArray(data.admins)) {
         setAdminList(data.admins);
       } else {
@@ -204,7 +204,7 @@ export default function Index() {
                 onClick={async () => {
                   try {
                     const data = await handleDownloadData();
-                    console.log('下载的数据:', data);
+                    // console.log('下载的数据:', data);
                   } catch (error) {
                     // 错误已在handleDownloadData中处理
                   }

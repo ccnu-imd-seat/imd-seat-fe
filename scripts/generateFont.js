@@ -105,7 +105,7 @@ function extractTextFromFile(filePath) {
 				}
 			});
 
-		console.log(`已处理文件: ${path.relative(srcDir, filePath)}`);
+		// console.log(`已处理文件: ${path.relative(srcDir, filePath)}`);
 	} catch (error) {
 		console.error(`处理文件失败 ${filePath}:`, error.message);
 	}
@@ -265,26 +265,26 @@ ${sortedTexts.join('')}
 
 	// 如果原始字体文件不存在，输出警告
 	if (!fs.existsSync(originalFontPath)) {
-		console.log('⚠️  注意：字体文件 AlibabaPuHuiTi-3-65-Medium.ttf 需要放置在 scripts/temp/ 目录中');
+		// console.log('⚠️  注意：字体文件 AlibabaPuHuiTi-3-65-Medium.ttf 需要放置在 scripts/temp/ 目录中');
 	}
 
 	// 写入文件
 	const outputPath = path.resolve(__dirname, 'temp/index.html');
 	fs.writeFileSync(outputPath, htmlContent, 'utf8');
 
-	console.log(`\n✅ 文字提取完成！`);
-	console.log(`📁 输出文件: ${outputPath}`);
-	console.log(`🔢 提取文字总数: ${sortedTexts.length} 个`);
-	console.log(`🈳 中文字符: ${sortedTexts.filter(t => /[\u4e00-\u9fff]/.test(t) && t.length === 1).length} 个`);
-	console.log(`🔤 英文文本: ${sortedTexts.filter(t => !/[\u4e00-\u9fff]/.test(t)).length} 个`);
+	// console.log(`\n✅ 文字提取完成！`);
+	// console.log(`📁 输出文件: ${outputPath}`);
+	// console.log(`🔢 提取文字总数: ${sortedTexts.length} 个`);
+	// console.log(`🈳 中文字符: ${sortedTexts.filter(t => /[\u4e00-\u9fff]/.test(t) && t.length === 1).length} 个`);
+	// console.log(`🔤 英文文本: ${sortedTexts.filter(t => !/[\u4e00-\u9fff]/.test(t)).length} 个`);
 }
 
 /**
  * 主函数
  */
 function main() {
-	console.log('🚀 开始提取页面文字...');
-	console.log(`📂 扫描目录: ${srcDir}`);
+	// console.log('🚀 开始提取页面文字...');
+	// console.log(`📂 扫描目录: ${srcDir}`);
 
 	if (!fs.existsSync(srcDir)) {
 		console.error(`❌ 源目录不存在: ${srcDir}`);
@@ -313,7 +313,7 @@ function runSystemCommand(command) {
 			if (stderr) {
 				console.warn(`⚠️ 命令警告: ${stderr}`);
 			}
-			console.log(`✅ 命令执行成功: ${stdout}`);
+			// console.log(`✅ 命令执行成功: ${stdout}`);
 			resolve(stdout);
 		});
 	});
@@ -322,7 +322,7 @@ function runSystemCommand(command) {
 // 计算生成字体的 base64 值并更新CSS文件
 async function calculateFontBase64() {
 	try {
-		console.log('🔍 正在计算字体文件的 base64 值...');
+		// console.log('🔍 正在计算字体文件的 base64 值...');
 
 		// 检查生成的字体文件
 		const fontFile = 'scripts/temp/AlibabaPuHuiTi-3-65-Medium.ttf';
@@ -332,10 +332,10 @@ async function calculateFontBase64() {
 			const fontBuffer = fs.readFileSync(fontFile);
 			const base64 = fontBuffer.toString('base64');
 
-			console.log(`📄 字体文件: ${fontFile}`);
-			console.log(`📊 文件大小: ${(fontBuffer.length / 1024).toFixed(2)} KB`);
-			console.log(`🔢 Base64 长度: ${base64.length} 字符`);
-			console.log(`📝 Base64 前缀: ${base64.substring(0, 50)}...`);
+			// console.log(`📄 字体文件: ${fontFile}`);
+			// console.log(`📊 文件大小: ${(fontBuffer.length / 1024).toFixed(2)} KB`);
+			// console.log(`🔢 Base64 长度: ${base64.length} 字符`);
+			// console.log(`📝 Base64 前缀: ${base64.substring(0, 50)}...`);
 
 			// 构建 data URI
 			const dataUri = `data:font/truetype;charset=utf-8;base64,${base64}`;
@@ -352,9 +352,9 @@ async function calculateFontBase64() {
 			// 写入更新后的 CSS 文件
 			fs.writeFileSync(cssFile, updatedCssContent, 'utf8');
 
-			console.log('🎨 CSS 文件已更新！');
-			console.log(`📄 文件位置: ${cssFile}`);
-			console.log('✅ 字体已成功转换为 base64 内嵌格式！');
+			// console.log('🎨 CSS 文件已更新！');
+			// console.log(`📄 文件位置: ${cssFile}`);
+			// console.log('✅ 字体已成功转换为 base64 内嵌格式！');
 		} else {
 			console.error(`❌ 字体文件不存在: ${fontFile}`);
 		}
@@ -366,27 +366,27 @@ async function calculateFontBase64() {
 // 主流程控制函数
 async function runFullProcess() {
 	try {
-		console.log('🚀 开始完整的字体生成流程...\n');
+		// console.log('🚀 开始完整的字体生成流程...\n');
 
 		// 步骤1: 提取文字并生成HTML
-		console.log('📝 步骤1: 提取页面文字...');
+		// console.log('📝 步骤1: 提取页面文字...');
 		main();
 
 		// 等待HTML文件生成完成
 		await new Promise(resolve => setTimeout(resolve, 1000));
 
 		// 步骤2: 运行font-spider处理字体
-		console.log('\n🕷️ 步骤2: 运行font-spider压缩字体...');
+		// console.log('\n🕷️ 步骤2: 运行font-spider压缩字体...');
 		await runSystemCommand('./node_modules/.bin/font-spider scripts/temp/index.html');
 
 		// 等待font-spider处理完成
 		await new Promise(resolve => setTimeout(resolve, 2000));
 
 		// 步骤3: 计算base64并更新CSS
-		console.log('\n🔄 步骤3: 转换字体为base64并更新CSS...');
+		// console.log('\n🔄 步骤3: 转换字体为base64并更新CSS...');
 		await calculateFontBase64();
 
-		console.log('\n🎉 字体生成流程全部完成！');
+		// console.log('\n🎉 字体生成流程全部完成！');
 
 	} catch (error) {
 		console.error('\n❌ 流程执行失败:', error.message);

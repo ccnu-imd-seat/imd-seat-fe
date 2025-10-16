@@ -65,12 +65,12 @@ const AppointPage: React.FC = () => {
       { type: currentTime },
       {
         header: {
-          DEBUG_MODE: '1',
+          DEBUG_MODE: '',
         },
       }
     ).then(res => {
       const dateArr = res.dates || [];
-      console.log('获取到的日期数据:', dateArr);
+      // console.log('获取到的日期数据:', dateArr);
       if (currentTime === 'day') {
         // 提取年月日
         const parsedDays = dateArr.map(d => {
@@ -94,7 +94,7 @@ const AppointPage: React.FC = () => {
   // 获取教室
   useEffect(() => {
     getRooms().then(res => {
-      console.log('获取到的教室数据:', res);
+      // console.log('获取到的教室数据:', res);
       setClassroomList(
         (res.rooms || []).map((room: string) => ({ roomNo: room }))
       );
@@ -118,7 +118,7 @@ const AppointPage: React.FC = () => {
     }
     if (dateStr && selectedClassroom) {
       getSeats({ date: dateStr, room: selectedClassroom }).then(res => {
-        console.log('获取到的座位数据:', res);
+        // console.log('获取到的座位数据:', res);
         setSeatStatus(
           (res.seats || []).map((seat: any) => ({
             num: seat.seat_id,
@@ -163,7 +163,7 @@ const AppointPage: React.FC = () => {
         },
         {
           header: {
-            DEBUG_MODE: '1',
+            DEBUG_MODE: '',
           },
         }
       );

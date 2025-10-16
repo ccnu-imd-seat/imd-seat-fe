@@ -23,12 +23,15 @@ const ScanPage = () => {
           throw new Error('未找到有效的座位ID');
         }
 
-        const checkinRes = await checkin({ seat_id: seatId }, {
-          header: {
-            DEBUG_MODE: '1',
-            DEBUG_DAY: '2025-08-08',
-          },
-        });
+        const checkinRes = await checkin(
+          { seat_id: seatId },
+          {
+            header: {
+              DEBUG_MODE: '',
+              DEBUG_DAY: '2025-08-08',
+            },
+          }
+        );
         Taro.showToast({
           title: checkinRes.message || '签到成功',
           icon: 'success',
@@ -37,7 +40,7 @@ const ScanPage = () => {
         // 签到成功后跳转回首页
         setTimeout(() => {
           Taro.switchTab({
-            url: '/pages/index/index'
+            url: '/pages/index/index',
           });
         }, 1500);
       } catch (e: any) {
