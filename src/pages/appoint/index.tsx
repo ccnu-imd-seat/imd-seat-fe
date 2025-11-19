@@ -22,6 +22,7 @@ import {
   parseDate,
   changeWeekRange,
 } from '../../utils/dateUtils';
+import { formatReservationError } from '../../constants/reservationErrorMessages';
 
 const AppointPage: React.FC = () => {
   // 预约相关状态
@@ -182,7 +183,10 @@ const AppointPage: React.FC = () => {
         );
       }
     } catch (e: any) {
-      Taro.showToast({ title: e?.message || '预约失败', icon: 'none' });
+      const code = typeof e?.code === 'string' ? Number(e.code) : e?.code;
+      const toastMessage =
+        formatReservationError(code, e?.message) || '预约失败';
+      Taro.showToast({ title: toastMessage, icon: 'none' });
     }
   };
 

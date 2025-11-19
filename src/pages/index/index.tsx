@@ -17,6 +17,7 @@ import { groupAndSortByStatusAndDate } from '../../utils/dealRecrds';
 import { checkAuth } from '@/utils/auth';
 import { getSupremeData, getAdminList } from '../../apis/admin';
 import './index.scss';
+import { formatReservationError } from '../../constants/reservationErrorMessages';
 
 export default function Index() {
   // 当前tab（0: 我的预约, 1: 违约记录）
@@ -106,7 +107,10 @@ export default function Index() {
       fetchReservations(); // 重新获取预约数据
     } catch (e: any) {
       Taro.hideLoading();
-      Taro.showToast({ title: e?.message || '取消失败', icon: 'none' });
+      const code = typeof e?.code === 'string' ? Number(e.code) : e?.code;
+      const toastMessage =
+        formatReservationError(code, e?.message) || '取消失败';
+      Taro.showToast({ title: toastMessage, icon: 'none' });
     }
   };
 
@@ -203,8 +207,7 @@ export default function Index() {
               <DownLoadButton
                 onClick={async () => {
                   try {
-                    const data = await handleDownloadData();
-                    // console.log('下载的数据:', data);
+                    await handleDownloadData();
                   } catch (error) {
                     // 错误已在handleDownloadData中处理
                   }

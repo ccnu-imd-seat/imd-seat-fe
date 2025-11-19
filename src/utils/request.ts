@@ -1,4 +1,5 @@
 import Taro from '@tarojs/taro';
+import { formatReservationError } from '../constants/reservationErrorMessages';
 
 // 基础 URL
 const BASE_URL = 'https://seat.muxixyz.com';
@@ -35,13 +36,16 @@ const ERROR_CODE_MAP: Record<number, string> = {
   3002: '数据库创建失败',
   3003: '数据库更新失败/删除失败',
 
-  // 预约模块 4000-4999
-  4001: '预约请求不合规',
-  4002: '已经签到过了',
-  4003: '您还未签到',
-
   // 默认错误码
   5000: '非预设错误',
+};
+
+const getErrorMessage = (code: number, fallback?: string): string => {
+  const reservationMsg = formatReservationError(code, fallback);
+  if (reservationMsg) {
+    return reservationMsg;
+  }
+  return ERROR_CODE_MAP[code] || fallback || ERROR_CODE_MAP[5000];
 };
 
 export async function request<T = any>({
@@ -94,9 +98,9 @@ export async function request<T = any>({
 
     // console.log('X-JWT-Token header:', resHeader['x-jwt-token'] || resHeader['X-JWT-Token']);
     const newToken =
-    resHeader['x-jwt-token'] ||
-    resHeader['X-JWT-Token'] ||
-    resHeader['X-Jwt-Token'];
+      resHeader['x-jwt-token'] ||
+      resHeader['X-JWT-Token'] ||
+      resHeader['X-Jwt-Token'];
     // console.log('New Token from response header:', newToken ? newToken : 'No token in header');
     if (newToken) {
       Taro.setStorageSync('token', newToken);
@@ -108,10 +112,7 @@ export async function request<T = any>({
         return resData.data;
       } else {
         // 取对应错误信息，找不到则使用默认错误码信息或返回接口消息
-        const errorMsg =
-          ERROR_CODE_MAP[resData.code] ||
-          resData.message ||
-          ERROR_CODE_MAP[5000];
+        const errorMsg = getErrorMessage(resData.code, resData.message);
 
         Taro.showToast({
           title: errorMsg,
